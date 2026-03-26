@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <iomanip>
+#include <sstream>
 #include <algorithm>
 #include "apsc.hpp"
 
@@ -26,6 +27,28 @@ burd supervertex;
 //Do rings
 std::map<int , burd> rings;
 std::map<int, burd> answer;
+
+std::string formatCoord(double value)
+{
+    std::ostringstream stream;
+    stream << std::fixed << std::setprecision(3) << value;
+    std::string text = stream.str();
+
+    while (!text.empty() && text.back() == '0')
+    {
+        text.pop_back();
+    }
+    if (!text.empty() && text.back() == '.')
+    {
+        text.pop_back();
+    }
+    if (text == "-0")
+    {
+        text = "0";
+    }
+
+    return text;
+}
 
 //Calculate Area
 double calculateArea(burd input)
@@ -79,8 +102,8 @@ void printToFile(std::ofstream& file, std::map<int, burd> input)
             {
                 file<< y.ring_id<<","
                 <<y.vertex_id<<","
-                <<y.x<<","
-                <<y.y<<"\n";
+                <<formatCoord(y.x)<<","
+                <<formatCoord(y.y)<<"\n";
             }
         }
         calculateAllAreas(input);
