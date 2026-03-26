@@ -1,10 +1,11 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -pedantic -Wall -Wextra -g
 
-INPUT = test_cases/input_original_01.csv
 #INPUT = test_cases/input_rectangle_with_two_holes.csv
-MODEL = test_cases/output_rectangle_with_two_holes.csv
-PLACEHOLDER = 1000
+
+INPUT = test_cases/input_original_01.csv
+MODEL = test_cases/output_original_01.csv
+PLACEHOLDER = 100
 TARGET = main
 OBJS = main.o apsc.o
 

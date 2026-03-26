@@ -25,6 +25,7 @@ burd supervertex;
 
 //Do rings
 std::map<int , burd> rings;
+std::map<int, burd> answer;
 
 //Calculate Area
 double calculateArea(burd input)
@@ -174,7 +175,7 @@ void exportSVG(const std::string& outpath, std::map<int,burd> input)
     std::cout << "SVG written to " << outpath << "\n";
 }
 
-void ReadFileAndSaveToVector(std::string& input, std::map<int,burd>& vect)
+void ReadFileAndSaveToVector(std::string input, std::map<int,burd>& vect)
 {
     std::fstream file(input);
     if(!file.is_open())
@@ -244,12 +245,14 @@ void simplify(std::string input, int vertices)
 
 int main(int argc, char* argv[])
 {
-   //Take in CSV file
-   if(argc <3) 
-   {
+    //Take in CSV file
+    if(argc <3) 
+    {
     std::cout<<"Usage: ./simplify inputfile.csv target_vertices";
-   } 
-  //Argv[0] is the ./simplify
-  //Argv[1] is the input file & Argv[2] is the vertices
-  simplify(argv[1], std::stoi(argv[2]));
+    } 
+    //Argv[0] is the ./simplify
+    //Argv[1] is the input file & Argv[2] is the vertices
+    simplify(argv[1], std::stoi(argv[2]));
+    ReadFileAndSaveToVector(argv[3], answer);
+    exportSVG("Answer.svg", answer);
 }
