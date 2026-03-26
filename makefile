@@ -5,7 +5,7 @@ CXXFLAGS = -std=c++17 -pedantic -Wall -Wextra -g
 
 INPUT = test_cases/input_original_01.csv
 MODEL = test_cases/output_original_01.csv
-PLACEHOLDER = 100
+PLACEHOLDER = 99
 TARGET = main
 OBJS = main.o apsc.o
 
