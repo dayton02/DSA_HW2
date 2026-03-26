@@ -24,7 +24,8 @@ Things I need to do
 burd supervertex;
 
 //Do rings
-std::map<int , burd> rings;
+std::map<int, burd> rings;
+std::map<int, burd> simplifiedRings;
 std::map<int, burd> answer;
 
 //Calculate Area
@@ -57,14 +58,15 @@ void printSuper(burd input)
 
 
 
-void calculateAllAreas(std::map<int, burd> input)
+double calculateAllAreas(std::map<int, burd> input)
 {
     double total_area = 0.0;
     for(std::pair<const int, burd> x: input)
     {
         total_area += calculateArea(x.second);
     }
-    std::cout<< std::fixed <<"The area for everything is: "<<std::setprecision(3)<<total_area<<std::endl;
+    //std::cout << "The area for everything is: " << std::fixed << std::setprecision(3)<< total_area << std::endl;
+    return total_area;
 }
 
 void printToFile(std::ofstream& file, std::map<int, burd> input)
@@ -72,19 +74,24 @@ void printToFile(std::ofstream& file, std::map<int, burd> input)
             //file
             //process input to rings then rings to burd
 
-        std::cout<<"ring_id,vertex_id,x,y\n";
+        file<<"ring_id,vertex_id,x,y\n";
         for(auto& x: input)
         {
             for(auto& y: x.second)
             {
-                file<< y.ring_id<<","
+                file << std::fixed << std::setprecision(3) << y.ring_id<<","
                 <<y.vertex_id<<","
                 <<y.x<<","
                 <<y.y<<"\n";
             }
         }
-        calculateAllAreas(input);
-            
+        //calculateAllAreas(input);
+
+        double input_area = calculateAllAreas(rings);
+        double simplified_area = calculateAllAreas(simplifiedRings);
+        file << "Total signed area in input: " << std::scientific << std::setprecision(6) << input_area << "\n";
+        file << "Total signed area in output: " << std::scientific << std::setprecision(6) << simplified_area << "\n";
+        file << "Total areal displacement: " << std::scientific << std::setprecision(6) << std::abs(input_area - simplified_area) << "\n";
     }
 
 //Input CSV file and read
@@ -219,7 +226,6 @@ void simplify(std::string input, int vertices)
     int totalVerts = 0;
     for(auto& [id,r]: rings) totalVerts += (int)r.size();
 
-    std::map<int,burd> simplifiedRings;
     for(auto& [id,r]: rings)
     {
         int target =std::max(4, (int)std::round(vertices* (double)r.size()/totalVerts));
