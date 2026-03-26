@@ -64,7 +64,7 @@ void calculateAllAreas(std::map<int, burd> input)
     {
         total_area += calculateArea(x.second);
     }
-    std::cout<<"The area for everything is: "<<std::setprecision(7)<<total_area<<std::endl;
+    std::cout<< std::fixed <<"The area for everything is: "<<std::setprecision(3)<<total_area<<std::endl;
 }
 
 void printToFile(std::ofstream& file, std::map<int, burd> input)
