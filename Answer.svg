@@ -1,0 +1,30 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='3000.00' height='3000.00' style='background:#0d0f14'>
+<g transform='translate(1375.00,1500.00) scale(25.00,-25.00)'>
+<path fill-rule='evenodd' fill='rgba(74,240,196,0.10)' stroke='none' d='M -5.00 -10.00 L 15.00 -10.00 L 15.00 10.00 L -5.00 10.00 Z M -2.00 5.00 L 5.00 5.00 L 5.00 -5.00 Z M 6.00 -2.00 L 11.00 3.00 L 14.00 -2.00 L 12.00 -8.00 Z '/>
+<polygon fill='none' stroke='#4af0c4' stroke-width='0.08' stroke-linejoin='round' points='-5.00,-10.00 15.00,-10.00 15.00,10.00 -5.00,10.00 '/>
+<circle cx='-5.00' cy='-10.00' r='0.16' fill='#0d0f14' stroke='#4af0c4' stroke-width='0.08'/>
+<text transform='translate(-4.80,-9.84) scale(0.04,-0.04)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v0 (-5.00,-10.00)</text>
+<circle cx='15.00' cy='-10.00' r='0.16' fill='#0d0f14' stroke='#4af0c4' stroke-width='0.08'/>
+<text transform='translate(15.20,-9.84) scale(0.04,-0.04)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v1 (15.00,-10.00)</text>
+<circle cx='15.00' cy='10.00' r='0.16' fill='#0d0f14' stroke='#4af0c4' stroke-width='0.08'/>
+<text transform='translate(15.20,10.16) scale(0.04,-0.04)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v2 (15.00,10.00)</text>
+<circle cx='-5.00' cy='10.00' r='0.16' fill='#0d0f14' stroke='#4af0c4' stroke-width='0.08'/>
+<text transform='translate(-4.80,10.16) scale(0.04,-0.04)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v3 (-5.00,10.00)</text>
+<polygon fill='none' stroke='#f06a4a' stroke-width='0.08' stroke-linejoin='round' points='-2.00,5.00 5.00,5.00 5.00,-5.00 '/>
+<circle cx='-2.00' cy='5.00' r='0.16' fill='#0d0f14' stroke='#f06a4a' stroke-width='0.08'/>
+<text transform='translate(-1.80,5.16) scale(0.04,-0.04)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v0 (-2.00,5.00)</text>
+<circle cx='5.00' cy='5.00' r='0.16' fill='#0d0f14' stroke='#f06a4a' stroke-width='0.08'/>
+<text transform='translate(5.20,5.16) scale(0.04,-0.04)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v1 (5.00,5.00)</text>
+<circle cx='5.00' cy='-5.00' r='0.16' fill='#0d0f14' stroke='#f06a4a' stroke-width='0.08'/>
+<text transform='translate(5.20,-4.84) scale(0.04,-0.04)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v2 (5.00,-5.00)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='0.08' stroke-linejoin='round' points='6.00,-2.00 11.00,3.00 14.00,-2.00 12.00,-8.00 '/>
+<circle cx='6.00' cy='-2.00' r='0.16' fill='#0d0f14' stroke='#a06af0' stroke-width='0.08'/>
+<text transform='translate(6.20,-1.84) scale(0.04,-0.04)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (6.00,-2.00)</text>
+<circle cx='11.00' cy='3.00' r='0.16' fill='#0d0f14' stroke='#a06af0' stroke-width='0.08'/>
+<text transform='translate(11.20,3.16) scale(0.04,-0.04)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (11.00,3.00)</text>
+<circle cx='14.00' cy='-2.00' r='0.16' fill='#0d0f14' stroke='#a06af0' stroke-width='0.08'/>
+<text transform='translate(14.20,-1.84) scale(0.04,-0.04)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (14.00,-2.00)</text>
+<circle cx='12.00' cy='-8.00' r='0.16' fill='#0d0f14' stroke='#a06af0' stroke-width='0.08'/>
+<text transform='translate(12.20,-7.84) scale(0.04,-0.04)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (12.00,-8.00)</text>
+</g>
+</svg>

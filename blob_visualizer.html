@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blob Visualizer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #0a0c10;
+    --surface: #111318;
+    --border: #1e2330;
+    --accent: #4af0c4;
+    --accent2: #f06a4a;
+    --accent3: #a06af0;
+    --text: #e8eaf0;
+    --muted: #5a6070;
+    --outer-fill: rgba(74, 240, 196, 0.08);
+    --outer-stroke: #4af0c4;
+    --hole1-fill: rgba(240, 106, 74, 0.15);
+    --hole1-stroke: #f06a4a;
+    --hole2-fill: rgba(160, 106, 240, 0.15);
+    --hole2-stroke: #a06af0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px;
+  }
+
+  header {
+    width: 100%;
+    max-width: 960px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+
+  .subtitle {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .main-layout {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    max-width: 960px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .canvas-wrapper {
+    flex: 1 1 500px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .canvas-toolbar {
+    display: flex;
+    gap: 8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.r { background: #ff5f57; }
+  .dot.y { background: #ffbd2e; }
+  .dot.g { background: #28c840; }
+
+  .canvas-label {
+    margin-left: 8px;
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  svg#main-svg {
+    display: block;
+    width: 100%;
+    cursor: grab;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 39px,
+      rgba(255,255,255,0.03) 39px,
+      rgba(255,255,255,0.03) 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 39px,
+      rgba(255,255,255,0.03) 39px,
+      rgba(255,255,255,0.03) 40px
+    );
+    background-color: #0d0f14;
+  }
+
+  svg#main-svg:active { cursor: grabbing; }
+
+  .side-panel {
+    flex: 0 0 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .info-card h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .ring-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .ring-item:last-child { border-bottom: none; }
+  .ring-item:hover { opacity: 0.8; }
+
+  .ring-swatch {
+    width: 12px; height: 12px;
+    border-radius: 2px;
+    border: 2px solid;
+    flex-shrink: 0;
+  }
+
+  .ring-info { flex: 1; }
+  .ring-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .ring-meta {
+    font-size: 0.68rem;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .toggle-btn {
+    font-size: 0.65rem;
+    font-family: 'Space Mono', monospace;
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--muted);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .toggle-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .toggle-btn:hover { opacity: 0.7; }
+
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-label { font-size: 0.7rem; color: var(--muted); }
+  .stat-value { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text); }
+
+  .controls-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.primary { border-color: var(--accent); color: var(--accent); }
+
+  .vertex-tooltip {
+    position: fixed;
+    background: #1a1e28;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 6px 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 100;
+    white-space: nowrap;
+  }
+  .vertex-tooltip.show { opacity: 1; }
+
+  .file-drop {
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .file-drop:hover, .file-drop.drag { border-color: var(--accent); }
+  .file-drop input { display: none; }
+  .file-drop-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+  .file-drop-label span { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>BLOB VISUALIZER</h1>
+    <div class="subtitle" id="file-label">input_blob_with_two_holes.csv</div>
+  </div>
+  <div class="subtitle" id="coord-display">x: — &nbsp; y: —</div>
+</header>
+
+<div class="main-layout">
+  <div class="canvas-wrapper">
+    <div class="canvas-toolbar">
+      <div class="dot r"></div>
+      <div class="dot y"></div>
+      <div class="dot g"></div>
+      <span class="canvas-label">scroll to zoom · drag to pan · hover vertices</span>
+    </div>
+    <svg id="main-svg" viewBox="0 0 680 520"></svg>
+  </div>
+
+  <div class="side-panel">
+    <div class="info-card">
+      <h3>Rings</h3>
+      <div id="ring-list"></div>
+    </div>
+
+    <div class="info-card">
+      <h3>Stats</h3>
+      <div id="stats-panel"></div>
+    </div>
+
+    <div class="info-card">
+      <h3>Display</h3>
+      <div class="controls-row">
+        <button class="btn active" id="btn-fill" onclick="toggleFill()">Fill</button>
+        <button class="btn active" id="btn-verts" onclick="toggleVerts()">Vertices</button>
+        <button class="btn active" id="btn-idx" onclick="toggleIdx()">Labels</button>
+        <button class="btn primary" onclick="resetView()">Reset</button>
+      </div>
+    </div>
+
+    <div class="info-card file-drop" id="file-drop" onclick="document.getElementById('file-input').click()">
+      <input type="file" id="file-input" accept=".csv" onchange="loadCSV(event)">
+      <div class="file-drop-label"><span>Upload</span> a new CSV</div>
+    </div>
+  </div>
+</div>
+
+<div class="vertex-tooltip" id="tooltip"></div>
+
+<script>
+// ── Data ────────────────────────────────────────────────────────────
+const CSV_DATA = `ring_id,vertex_id,x,y
+0,0,0,0
+0,1,200,-50
+0,2,400,0
+0,3,600,-30
+0,4,800,0
+0,5,1000,50
+0,6,1200,0
+0,7,1250,200
+0,8,1200,400
+0,9,1250,600
+0,10,1100,750
+0,11,900,850
+0,12,700,900
+0,13,500,1000
+0,14,300,950
+0,15,150,800
+0,16,50,650
+0,17,0,500
+0,18,-50,300
+0,19,0,150
+1,0,200,200
+1,1,200,350
+1,2,300,450
+1,3,450,400
+1,4,450,300
+1,5,400,200
+1,6,300,150
+2,0,700,300
+2,1,750,350
+2,2,850,500
+2,3,950,650
+2,4,1000,600
+2,5,1050,450
+2,6,1000,350
+2,7,900,250
+2,8,800,200`;
+
+const RING_CONFIG = [
+  { label: 'Outer Blob', type: 'outer', fill: 'rgba(74,240,196,0.10)', stroke: '#4af0c4', swatchColor: '#4af0c4' },
+  { label: 'Hole 1',     type: 'hole',  fill: 'rgba(240,106,74,0.18)',  stroke: '#f06a4a', swatchColor: '#f06a4a' },
+  { label: 'Hole 2',     type: 'hole',  fill: 'rgba(160,106,240,0.18)', stroke: '#a06af0', swatchColor: '#a06af0' },
+];
+
+// ── State ────────────────────────────────────────────────────────────
+let rings = [];
+let showFill = true, showVerts = true, showIdx = true;
+let ringVisible = [];
+let viewBox = { x: 0, y: 0, w: 680, h: 520 };
+let pan = { active: false, startX: 0, startY: 0, vbStart: null };
+
+// ── CSV Parse ────────────────────────────────────────────────────────
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const header = lines[0].split(',').map(s => s.trim());
+  const rows = lines.slice(1).map(l => {
+    const vals = l.split(',');
+    const obj = {};
+    header.forEach((h, i) => obj[h] = parseFloat(vals[i]));
+    return obj;
+  });
+  const map = {};
+  rows.forEach(r => {
+    const id = r.ring_id;
+    if (!map[id]) map[id] = [];
+    map[id].push({ vid: r.vertex_id, x: r.x, y: r.y });
+  });
+  return Object.keys(map).sort((a,b)=>+a-+b).map(id => ({
+    id: +id,
+    vertices: map[id].sort((a,b)=>a.vid-b.vid)
+  }));
+}
+
+function loadData(csvText, filename) {
+  rings = parseCSV(csvText);
+  ringVisible = rings.map(() => true);
+  if (filename) document.getElementById('file-label').textContent = filename;
+  buildUI();
+  fitView();
+  render();
+}
+
+// ── Fit view ─────────────────────────────────────────────────────────
+function fitView() {
+  const allPts = rings.flatMap(r => r.vertices);
+  const xs = allPts.map(p => p.x), ys = allPts.map(p => p.y);
+  const minX = Math.min(...xs), maxX = Math.max(...xs);
+  const minY = Math.min(...ys), maxY = Math.max(...ys);
+  const pw = maxX - minX, ph = maxY - minY;
+  const pad = Math.max(pw, ph) * 0.12;
+  viewBox = { x: minX - pad, y: minY - pad, w: pw + pad*2, h: ph + pad*2 };
+}
+
+function resetView() { fitView(); render(); }
+
+// ── SVG helpers ───────────────────────────────────────────────────────
+const svg = document.getElementById('main-svg');
+
+function svgNS(tag, attrs) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+  return el;
+}
+
+function polyPath(vertices) {
+  return vertices.map((p,i) => `${i===0?'M':'L'}${p.x},${p.y}`).join(' ') + ' Z';
+}
+
+// ── Render ────────────────────────────────────────────────────────────
+function render() {
+  svg.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+  svg.innerHTML = '';
+
+  // Defs for clip path (even-odd rule handles holes)
+  const defs = svgNS('defs', {});
+  svg.appendChild(defs);
+
+  // Glow filter
+  const filter = svgNS('filter', { id: 'glow', x: '-20%', y: '-20%', width: '140%', height: '140%' });
+  const fe = svgNS('feGaussianBlur', { in: 'SourceGraphic', stdDeviation: '3', result: 'blur' });
+  const merge = svgNS('feMerge', {});
+  const mn1 = svgNS('feMergeNode', { in: 'blur' });
+  const mn2 = svgNS('feMergeNode', { in: 'SourceGraphic' });
+  merge.appendChild(mn1); merge.appendChild(mn2);
+  filter.appendChild(fe); filter.appendChild(merge);
+  defs.appendChild(filter);
+
+  // Build even-odd compound path for outer blob + holes
+  if (showFill && rings.length > 0) {
+    const outerRing = rings[0];
+    if (ringVisible[0]) {
+      // Compound path: outer + all visible holes
+      const holeRings = rings.slice(1).filter((_, i) => ringVisible[i+1]);
+      const d = [polyPath(outerRing.vertices), ...holeRings.map(r => polyPath(r.vertices))].join(' ');
+      const path = svgNS('path', {
+        d,
+        fill: RING_CONFIG[0].fill,
+        'fill-rule': 'evenodd',
+        stroke: 'none',
+      });
+      svg.appendChild(path);
+    }
+  }
+
+  // Draw outlines
+  rings.forEach((ring, ri) => {
+    if (!ringVisible[ri]) return;
+    const cfg = RING_CONFIG[ri] || RING_CONFIG[RING_CONFIG.length-1];
+    const d = polyPath(ring.vertices);
+
+    const outline = svgNS('path', {
+      d,
+      fill: 'none',
+      stroke: cfg.stroke,
+      'stroke-width': ri === 0 ? '2' : '1.5',
+      'stroke-linejoin': 'round',
+      filter: 'url(#glow)',
+      opacity: '0.9',
+    });
+    svg.appendChild(outline);
+
+    // Vertices
+    if (showVerts) {
+      ring.vertices.forEach(v => {
+        const r = ri === 0 ? 5 : 4;
+        const circle = svgNS('circle', {
+          cx: v.x, cy: v.y, r,
+          fill: '#0d0f14',
+          stroke: cfg.stroke,
+          'stroke-width': '1.5',
+          class: 'vertex',
+          'data-ring': ri,
+          'data-vid': v.vid,
+          'data-x': v.x,
+          'data-y': v.y,
+          style: 'cursor:crosshair',
+        });
+        svg.appendChild(circle);
+
+        if (showIdx) {
+          const fs = Math.max(viewBox.w, viewBox.h) * 0.018;
+          const label = svgNS('text', {
+            x: v.x + fs * 0.7,
+            y: v.y - fs * 0.5,
+            fill: cfg.stroke,
+            'font-size': fs,
+            'font-family': 'Space Mono, monospace',
+            opacity: '0.7',
+            'pointer-events': 'none',
+          });
+          label.textContent = v.vid;
+          svg.appendChild(label);
+        }
+      });
+    }
+  });
+
+  attachVertexEvents();
+  updateStats();
+}
+
+// ── Tooltip ───────────────────────────────────────────────────────────
+const tooltip = document.getElementById('tooltip');
+
+function attachVertexEvents() {
+  svg.querySelectorAll('.vertex').forEach(el => {
+    el.addEventListener('mouseenter', e => {
+      const ri = el.getAttribute('data-ring');
+      const vid = el.getAttribute('data-vid');
+      const x = parseFloat(el.getAttribute('data-x'));
+      const y = parseFloat(el.getAttribute('data-y'));
+      const cfg = RING_CONFIG[ri] || RING_CONFIG[RING_CONFIG.length-1];
+      tooltip.innerHTML = `<span style="color:${cfg.stroke}">ring ${ri}</span> · v${vid} &nbsp; (${x}, ${y})`;
+      tooltip.classList.add('show');
+    });
+    el.addEventListener('mousemove', e => {
+      tooltip.style.left = (e.clientX + 14) + 'px';
+      tooltip.style.top  = (e.clientY - 10) + 'px';
+    });
+    el.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+  });
+}
+
+// ── Pan & Zoom ────────────────────────────────────────────────────────
+svg.addEventListener('mousedown', e => {
+  if (e.button !== 0) return;
+  pan.active = true;
+  pan.startX = e.clientX;
+  pan.startY = e.clientY;
+  pan.vbStart = { ...viewBox };
+});
+
+window.addEventListener('mousemove', e => {
+  if (!pan.active) return;
+  const svgEl = svg.getBoundingClientRect();
+  const scaleX = viewBox.w / svgEl.width;
+  const scaleY = viewBox.h / svgEl.height;
+  const dx = (e.clientX - pan.startX) * scaleX;
+  const dy = (e.clientY - pan.startY) * scaleY;
+  viewBox.x = pan.vbStart.x - dx;
+  viewBox.y = pan.vbStart.y - dy;
+  render();
+
+  // Coord display
+  const mx = viewBox.x + (e.clientX - svgEl.left) / svgEl.width * viewBox.w;
+  const my = viewBox.y + (e.clientY - svgEl.top) / svgEl.height * viewBox.h;
+  document.getElementById('coord-display').textContent = `x: ${mx.toFixed(0)} \u00a0 y: ${my.toFixed(0)}`;
+});
+
+window.addEventListener('mouseup', () => { pan.active = false; });
+
+svg.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = svg.getBoundingClientRect();
+  const mx = viewBox.x + (e.clientX - rect.left) / rect.width  * viewBox.w;
+  const my = viewBox.y + (e.clientY - rect.top)  / rect.height * viewBox.h;
+  const factor = e.deltaY > 0 ? 1.12 : 0.89;
+  viewBox.w *= factor; viewBox.h *= factor;
+  viewBox.x = mx - (e.clientX - rect.left) / rect.width  * viewBox.w;
+  viewBox.y = my - (e.clientY - rect.top)  / rect.height * viewBox.h;
+  render();
+}, { passive: false });
+
+svg.addEventListener('mousemove', e => {
+  if (pan.active) return;
+  const rect = svg.getBoundingClientRect();
+  const mx = viewBox.x + (e.clientX - rect.left) / rect.width  * viewBox.w;
+  const my = viewBox.y + (e.clientY - rect.top)  / rect.height * viewBox.h;
+  document.getElementById('coord-display').textContent = `x: ${mx.toFixed(0)} \u00a0 y: ${my.toFixed(0)}`;
+});
+
+// ── UI ────────────────────────────────────────────────────────────────
+function buildUI() {
+  const list = document.getElementById('ring-list');
+  list.innerHTML = '';
+  rings.forEach((ring, ri) => {
+    const cfg = RING_CONFIG[ri] || RING_CONFIG[RING_CONFIG.length-1];
+    const item = document.createElement('div');
+    item.className = 'ring-item';
+    item.innerHTML = `
+      <div class="ring-swatch" style="background:${cfg.fill};border-color:${cfg.stroke}"></div>
+      <div class="ring-info">
+        <div class="ring-name">${cfg.label}</div>
+        <div class="ring-meta">${ring.vertices.length} vertices</div>
+      </div>
+      <button class="toggle-btn active" id="vis-btn-${ri}" onclick="toggleRing(${ri})">ON</button>
+    `;
+    list.appendChild(item);
+  });
+}
+
+function toggleRing(ri) {
+  ringVisible[ri] = !ringVisible[ri];
+  const btn = document.getElementById(`vis-btn-${ri}`);
+  btn.textContent = ringVisible[ri] ? 'ON' : 'OFF';
+  btn.classList.toggle('active', ringVisible[ri]);
+  render();
+}
+
+function toggleFill() {
+  showFill = !showFill;
+  document.getElementById('btn-fill').classList.toggle('active', showFill);
+  render();
+}
+function toggleVerts() {
+  showVerts = !showVerts;
+  document.getElementById('btn-verts').classList.toggle('active', showVerts);
+  render();
+}
+function toggleIdx() {
+  showIdx = !showIdx;
+  document.getElementById('btn-idx').classList.toggle('active', showIdx);
+  render();
+}
+
+function polygonArea(pts) {
+  let a = 0;
+  for (let i = 0; i < pts.length; i++) {
+    const j = (i+1) % pts.length;
+    a += pts[i].x * pts[j].y - pts[j].x * pts[i].y;
+  }
+  return Math.abs(a / 2);
+}
+
+function updateStats() {
+  const panel = document.getElementById('stats-panel');
+  const totalVerts = rings.reduce((s,r) => s + r.vertices.length, 0);
+  const outerArea = rings[0] ? polygonArea(rings[0].vertices) : 0;
+  const holeArea  = rings.slice(1).reduce((s,r) => s + polygonArea(r.vertices), 0);
+  const rows = [
+    ['Total vertices', totalVerts],
+    ['Rings', rings.length],
+    ['Outer area', Math.round(outerArea).toLocaleString()],
+    ['Holes area', Math.round(holeArea).toLocaleString()],
+    ['Net area', Math.round(outerArea - holeArea).toLocaleString()],
+  ];
+  panel.innerHTML = rows.map(([l,v]) => `
+    <div class="stat-row">
+      <span class="stat-label">${l}</span>
+      <span class="stat-value">${v}</span>
+    </div>`).join('');
+}
+
+// ── File upload ───────────────────────────────────────────────────────
+function loadCSV(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => loadData(e.target.result, file.name);
+  reader.readAsText(file);
+}
+
+const dropZone = document.getElementById('file-drop');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag');
+  const file = e.dataTransfer.files[0];
+  if (file) { const r = new FileReader(); r.onload = ev => loadData(ev.target.result, file.name); r.readAsText(file); }
+});
+
+// ── Init ──────────────────────────────────────────────────────────────
+loadData(CSV_DATA, 'input_blob_with_two_holes.csv');
+</script>
+</body>
+</html>
