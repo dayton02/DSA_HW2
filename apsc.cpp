@@ -72,7 +72,7 @@ Point placement(Point A, Point B, Point C, Point D)
     bool useAB;
     if(sameAD)
     {
-        useAB = (std::abs(distB) > std::abs(distC)); //Choose AB if B is further
+        useAB = (std::abs(distB) < std::abs(distC)); //Choose AB if B is further
     }
     else{
         useAB = ((distEline* distB) > 0.0); //Else check if its (+)
@@ -129,7 +129,8 @@ bool topologyCheck(const std::vector<Point>& poly, int iA, int iB, int iC, int i
     {
         int j = (i+1) % n;
         //Skip 3 segments AB, BC and CD that are beign collapsed
-        if(i == iA || i == iB || i == iC || i == iD) continue;
+        //if(i == iA || i == iB || i == iC || i == iD) continue;
+        if(i == iA || i == iB || i == iC) continue;
         if(segmentsIntersect(A,E, poly[i], poly[j])) return false;
         if(segmentsIntersect(E,D, poly[i], poly[j])) return false;
     }
