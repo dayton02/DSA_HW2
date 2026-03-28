@@ -4,7 +4,7 @@ CXXFLAGS = -std=c++17 -pedantic -Wall -Wextra -g
 #INPUT = test_cases/input_rectangle_with_two_holes.csv
 
 INPUT = test_cases/input_original_02.csv
-MODEL = test_cases/output_original_02.csv
+MODEL = test_cases/output_original_02.txt
 PLACEHOLDER = 99
 TARGET = main
 OBJS = main.o apsc.o

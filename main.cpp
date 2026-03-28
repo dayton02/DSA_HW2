@@ -205,28 +205,41 @@ void exportSVG(const std::string& outpath, std::map<int,burd> input)
     std::cout << "SVG written to " << outpath << "\n";
 }
 
-void ReadFileAndSaveToVector(std::string input, std::map<int,burd>& vect)
-{
-    std::fstream file(input);
-    if(!file.is_open())
-    {
-        std::cout<<"Unable to open file: "<<input<<std::endl;
+void ReadFileAndSaveToVector(std::string input, std::map<int, burd>& vect) {
+    std::ifstream file(input);
+    if (!file.is_open()) {
+        std::cerr << "Error: Unable to open " << input << std::endl;
         return;
     }
+
     std::string line;
-    //Burn the first line of the csv
-    std::getline(file,line);
-    //bool onetime = true;
-    while(std::getline(file,line) /*&& onetime*/)
-    {
-        int ring_id = std::stoi(line.substr(0, line.find_first_of(',')));
-        line = line.substr(line.find_first_of(',')+1);
-        int vertex_id = std::stoi(line.substr(0, line.find_first_of(',')));
-        line = line.substr(line.find_first_of(',')+1);
-        float x = std::stod(line.substr(0,line.find_first_of(',')));
-        line = line.substr(line.find_first_of(',')+1);
-        float y = std::stod(line);
-        vect[ring_id].push_back({ring_id,vertex_id, x, y});
+    std::getline(file, line); // Skip CSV header
+
+    while (std::getline(file, line)) {
+        if (line.empty()) continue;
+
+        // CHECK: If the line starts with 'T' (for "Total"), stop reading coordinates!
+        if (line[0] == 'T' || !std::isdigit(line[0])) {
+            break; 
+        }
+
+        std::stringstream ss(line);
+        std::string part;
+
+        try {
+            std::getline(ss, part, ',');
+            int ring_id = std::stoi(part);
+            std::getline(ss, part, ',');
+            int vertex_id = std::stoi(part);
+            std::getline(ss, part, ',');
+            double x = std::stod(part);
+            std::getline(ss, part, ',');
+            double y = std::stod(part);
+
+            vect[ring_id].push_back({ring_id, vertex_id, x, y});
+        } catch (...) {
+            continue; // Skip any weird lines
+        }
     }
 }
 
