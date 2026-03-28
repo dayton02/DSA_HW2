@@ -1,6 +1,36 @@
 #include "apsc.hpp"
+#include <algorithm>
 
 //#define burd std::vector<VertexData>
+
+double getPolygonArea(Point P1, Point P2, Point P3, Point P4) {
+    auto intersect = [](Point p1, Point p2, Point p3, Point p4, Point& X) {
+        double det = (p2.x - p1.x)*(p4.y - p3.y) - (p2.y - p1.y)*(p4.x - p3.x);
+        if (std::abs(det) < 1e-12) return false;
+        
+        double t = ((p3.x - p1.x)*(p4.y - p3.y) - (p3.y - p1.y)*(p4.x - p3.x)) / det;
+        double u = ((p3.x - p1.x)*(p2.y - p1.y) - (p3.y - p1.y)*(p2.x - p1.x)) / det;
+        
+        // STRICT BOUNDS: The lines must cross exactly within the segments
+        if (t >= -1e-8 && t <= 1.0 + 1e-8 && u >= -1e-8 && u <= 1.0 + 1e-8) {
+            X = {p1.x + t*(p2.x - p1.x), p1.y + t*(p2.y - p1.y)};
+            return true;
+        }
+        return false;
+    };
+
+    Point X;
+    // Case 1: P1-P2 crosses P3-P4
+    if (intersect(P1, P2, P3, P4, X)) {
+        return std::abs(triArea(P1, P4, X)) + std::abs(triArea(P2, P3, X));
+    }
+    // Case 2: P2-P3 crosses P4-P1
+    if (intersect(P2, P3, P4, P1, X)) {
+        return std::abs(triArea(P1, P2, X)) + std::abs(triArea(P3, P4, X));
+    }
+    // Case 3: Simple polygon (no crossing)
+    return std::abs(triArea(P1, P2, P3) + triArea(P1, P3, P4));
+}
 
 //1) Calculate the signed distance between pt and line AB
 //Where is the point relative to A and D
@@ -53,56 +83,97 @@ void eLineTwoPoints(double a, double b, double c, Point& e1, Point& e2)
         e1 = {-c/a, 0.0};
         e2 = {-c/a, 1.0};
     }
-} 
+}
+
 //6) Decides on whether to collapse BC into AD or CD depending on geometry
 Point placement(Point A, Point B, Point C, Point D)
 {
-    //This is kinda the init for the calculation
-    double a,b,c;
-    computeELine(A, B,C, D, a, b,c); //Get da line coefficients (ax + by + c = 0)
+    double a, b, c;
+    computeELine(A, B, C, D, a, b, c); // Get the line coefficients (ax + by + c = 0)
     Point e1, e2;
-    eLineTwoPoints(a, b, c, e1, e2); //Two points on E
+    eLineTwoPoints(a, b, c, e1, e2); // Two points on E
 
-    //Here is the calculation based on the E line made and the calculation of the new shape
-    double distB = signedDist(B, A, D); //side of AD for B
-    double distC = signedDist(C, A, D); //side of AD for C
-    double distEline = signedDist(e1, A,D); //side of AD for E line
-    bool sameAD = (distB* distC > 0.0); //B and C on the same side of AD
+    // Candidate 1: Place E on the line extending AB
+    Point E_AB = B;
+    bool valid_AB = lineIntersect(A, B, e1, e2, E_AB);
+    double disp_AB = valid_AB ? getPolygonArea(E_AB, B, C, D) : std::numeric_limits<double>::max();
 
-    bool useAB;
-    if(sameAD)
-    {
-        useAB = (std::abs(distB) < std::abs(distC)); //Choose AB if B is further
-    }
-    else{
-        useAB = ((distEline* distB) > 0.0); //Else check if its (+)
+    // Candidate 2: Place E on the line extending CD
+    Point E_CD = C;
+    bool valid_CD = lineIntersect(C, D, e1, e2, E_CD);
+    double disp_CD = valid_CD ? getPolygonArea(A, B, C, E_CD) : std::numeric_limits<double>::max();
+
+    // Fallback if both line extensions are completely parallel to the E-line
+    if (!valid_AB && !valid_CD) {
+        return B;
     }
 
-    Point E;
-    if(useAB)
-    {
-        if(!lineIntersect(A,B,e1,e2, E)) 
-        {
-            E = B;
-        }
-    }
-    else{
-        if(!lineIntersect(C,D, e1, e2, E))
-        {
-            E = C;
-        }
-    }
-    return E;
+    // Directly minimize the areal displacement
+    return (disp_AB <= disp_CD) ? E_AB : E_CD;
 }
 
-//Total area displacement between ABCD and AED
-double displacementArea(Point A, Point B, Point C, Point D, Point E)
-{
-    //da left region consists of triangles ABE and BCE
-    double L = std::abs(triArea(A,B,E)) + std::abs(triArea(B,C,E));
-    //the right region is triangle CED
-    double R = std::abs(triArea(C,E,D));
-    return L+R; //Add tgt to get total displacement
+// Calculates the sum of the two lobes of a self-intersecting "bowtie" quadrilateral
+double getBowtieArea(Point P1, Point P2, Point P3, Point P4) {
+    auto intersect = [](Point p1, Point p2, Point p3, Point p4, Point& X, double& t, double& u) {
+        double det = (p2.x - p1.x)*(p4.y - p3.y) - (p2.y - p1.y)*(p4.x - p3.x);
+        if (std::abs(det) < 1e-12) return false;
+        t = ((p3.x - p1.x)*(p4.y - p3.y) - (p3.y - p1.y)*(p4.x - p3.x)) / det;
+        u = ((p3.x - p1.x)*(p2.y - p1.y) - (p3.y - p1.y)*(p2.x - p1.x)) / det;
+        X = {p1.x + t*(p2.x - p1.x), p1.y + t*(p2.y - p1.y)};
+        return true;
+    };
+
+    Point X1, X2; 
+    double t1, u1, t2, u2;
+    bool cross1 = intersect(P1, P2, P3, P4, X1, t1, u1);
+    bool cross2 = intersect(P2, P3, P4, P1, X2, t2, u2);
+    
+    // Score based on how close the intersection is to the center of the segments
+    // This perfectly handles floating-point noise on extreme scales
+    double score1 = cross1 ? std::max(std::abs(t1 - 0.5), std::abs(u1 - 0.5)) : 1e9;
+    double score2 = cross2 ? std::max(std::abs(t2 - 0.5), std::abs(u2 - 0.5)) : 1e9;
+
+    if (score1 < score2 && score1 < 2.0) { 
+        // Pair 1 crosses (True Bowtie)
+        return std::abs(triArea(X1, P2, P3)) + std::abs(triArea(X1, P4, P1));
+    } else if (score2 < 2.0) { 
+        // Pair 2 crosses (True Bowtie)
+        return std::abs(triArea(X2, P3, P4)) + std::abs(triArea(X2, P1, P2));
+    }
+    
+    // Fallback for extreme floating point degenerate cases (acts as simple polygon)
+    return std::abs(triArea(P1, P2, P3) + triArea(P1, P3, P4));
+}
+
+
+// THE FIXED DISPLACEMENT FUNCTION
+double displacementArea(Point A, Point B, Point C, Point D, Point E) {
+    // If E was placed on AB, the triangle formed by A, B, and E is degenerate (area is ~0).
+    // We compare it against the C-D-E triangle to safely avoid floating point noise.
+    if (std::abs(triArea(A, B, E)) <= std::abs(triArea(C, D, E))) {
+        // E is perfectly aligned with AB
+        return getPolygonArea(E, B, C, D);
+    } else {
+        // E is perfectly aligned with CD
+        return getPolygonArea(A, B, C, E);
+    }
+}
+
+// GLOBAL TOPOLOGY CHECK: Checks every active segment across ALL rings
+bool topologyCheckGlobal(const std::vector<Node>& nodes, int iA, int iB, int iC, int iD, Point E) {
+    Point A = nodes[iA].p, D = nodes[iD].p;
+    
+    for (int curr = 0; curr < (int)nodes.size(); curr++) {
+        if (!nodes[curr].active) continue;
+        int next_idx = nodes[curr].next;
+        
+        // Skip the specific sequence being collapsed
+        if (curr == iA || curr == iB || curr == iC) continue;
+        
+        if (segmentsIntersect(A, E, nodes[curr].p, nodes[next_idx].p)) return false;
+        if (segmentsIntersect(E, D, nodes[curr].p, nodes[next_idx].p)) return false;
+    }
+    return true;
 }
 
 //Segment intersection test for topology check 
@@ -121,116 +192,169 @@ bool segmentsIntersect(Point p1, Point p2, Point p3, Point p4)
     double u = cross2d(sub(p3,p1), r)/det;
     return (t > 1e-9 && t < 1- 1e-9 && u > 1e-9 && u <1-1e-9);
 }
-bool topologyCheck(const std::vector<Point>& poly, int iA, int iB, int iC, int iD, Point E)
+
+bool topologyCheck(const std::vector<Node>& nodes, int iA, int iB, int iC, int iD, Point E)
 {
-    int n = poly.size();
-    Point A = poly[iA], D = poly[iD];
-    for(int i =0;i<n;i++)
-    {
-        int j = (i+1) % n;
-        //Skip 3 segments AB, BC and CD that are beign collapsed
-        //if(i == iA || i == iB || i == iC || i == iD) continue;
-        if(i == iA || i == iB || i == iC) continue;
-        if(segmentsIntersect(A,E, poly[i], poly[j])) return false;
-        if(segmentsIntersect(E,D, poly[i], poly[j])) return false;
-    }
+    Point A = nodes[iA].p, D = nodes[iD].p;
+    
+    int start = iA; // GUARANTEED to be active
+    int curr = start;
+    do {
+        int next_idx = nodes[curr].next;
+        if (curr == iA || curr == iB || curr == iC) {
+            curr = next_idx;
+            continue;
+        }
+        
+        if (segmentsIntersect(A, E, nodes[curr].p, nodes[next_idx].p)) return false;
+        if (segmentsIntersect(E, D, nodes[curr].p, nodes[next_idx].p)) return false;
+        
+        curr = next_idx;
+    } while (curr != start);
+    
     return true;
 }
 
-//Convert burd to vector of points
-std::vector<Point> burdToPoints(const burd& ring)
+// Converters for Doubly Linked List
+std::vector<Node> burdToNodes(const burd& ring)
 {
-    std::vector<Point> pts;
-    pts.reserve(ring.size());
-    for(auto& v: ring)
-    {
-        pts.push_back({v.x, v.y});
+    int n = ring.size();
+    std::vector<Node> nodes(n);
+    for (int i = 0; i < n; i++) {
+        nodes[i] = {{ring[i].x, ring[i].y}, 
+                    (i - 1 + n) % n, 
+                    (i + 1) % n, 
+                    true, 
+                    ring[i].vertex_id,
+                    0,
+                    ring[i].ring_id
+                }; 
     }
-    return pts;
+    return nodes;
 }
 
-burd pointsToBurd(const std::vector<Point>& pts, int ring_id)
+burd nodesToBurd(const std::vector<Node>& nodes, int ring_id)
 {
     burd result;
-    for(int i =0;i<(int)pts.size(); i++)
-    {
-        result.push_back({ring_id, i, pts[i].x, pts[i].y});
-    }
+    
+    // Find the first active node to start
+    int start = 0;
+    while (!nodes[start].active && start < (int)nodes.size()) start++;
+    
+    if (start >= (int)nodes.size()) return result; // Empty ring
+
+    int curr = start;
+    int new_vertex_id = 0;
+    do {
+        result.push_back({ring_id, new_vertex_id++, nodes[curr].p.x, nodes[curr].p.y});
+        curr = nodes[curr].next;
+    } while (curr != start);
+    
     return result;
 }
-burd apscRing(const burd& ring, int targetVertices, bool doTopoCheck)
-{
-    std::vector<Point> poly = burdToPoints(ring);
-    int n = poly.size();
 
-    if(n <= targetVertices || n <4) return ring; //Do nothing
+void apscPolygon(std::map<int, burd>& rings, int targetVertices, bool doTopoCheck, double& outDisplacement) {
+    std::vector<Node> nodes;
+    std::map<int, int> ringActiveCount;
+    int activeCount = 0;
+    
+    // 1. Unify all rings into a single Global Node Array
+    for (auto& [ring_id, ring] : rings) {
+        int n = ring.size();
+        int start_idx = nodes.size();
+        ringActiveCount[ring_id] = n;
+        
+        for (int i = 0; i < n; i++) {
+            nodes.push_back({
+                {ring[i].x, ring[i].y},
+                start_idx + (i - 1 + n) % n,
+                start_idx + (i + 1) % n,
+                true,
+                ring[i].vertex_id,
+                0,
+                ring_id
+            });
+            activeCount++;
+        }
+    }
 
-    //For each entry
-    struct Op{int a, b, c ,d; Point E; double disp;};
-    std::map<int ,Op> ops;
+    if (activeCount <= targetVertices) return;
+
+    struct Op { int a, b, c, d; Point E; double disp; int vA, vB, vC, vD; };
+    std::map<int, Op> ops;
 
     using Entry = std::pair<double, int>;
     std::priority_queue<Entry, std::vector<Entry>, std::greater<Entry>> pq;
     int nextId = 0;
 
-    //Register candidate for 4-verte window from i
-    auto addOp = [&](int i)
-    {
-        int a = i,
-        b = (i+1) %n,
-        c = (i+2) %n,
-        d = (i+3) %n;
-        Point E = placement(poly[a], poly[b], poly[c], poly[d]);
-        double dis =displacementArea(poly[a], poly[b], poly[c], poly[d], E);
+    auto addOp = [&](int a) {
+        int b = nodes[a].next;
+        int c = nodes[b].next;
+        int d = nodes[c].next;
+        
+        // Protect holes: Never let a ring drop below 4 vertices!
+        if (ringActiveCount[nodes[a].ring_id] <= 4) return;
+        if (a == b || a == c || a == d) return; 
+        
+        Point E = placement(nodes[a].p, nodes[b].p, nodes[c].p, nodes[d].p);
+        double dis = displacementArea(nodes[a].p, nodes[b].p, nodes[c].p, nodes[d].p, E);
+        
         int id = nextId++;
-        ops[id] = {a,b,c,d,E,dis};
-        pq.push({dis,id});
+        ops[id] = {a, b, c, d, E, dis, nodes[a].version, nodes[b].version, nodes[c].version, nodes[d].version};
+        pq.push({dis, id});
     };
-    for(int i =0;i<n;i++) addOp(i);
 
-    //Iterate through everything in the queue then see if can make smol
-    while((int)poly.size() > targetVertices && !pq.empty())
-    {
-        auto[disp,id] = pq.top(); pq.pop();
+    for (int i = 0; i < (int)nodes.size(); i++) addOp(i);
 
-        //If op already invalidated
-        if(ops.find(id) == ops.end()) continue;
+    // 2. Globally collapse the absolute best candidates
+    while (activeCount > targetVertices && !pq.empty()) {
+        auto[disp, id] = pq.top(); 
+        pq.pop();
+
+        if (ops.find(id) == ops.end()) continue;
         Op op = ops[id];
-        ops.erase(id);
+        ops.erase(id); 
 
-        if(op.a >= (int)poly.size() || op.b >= (int)poly.size()|| op.c >= (int)poly.size() || op.d >= (int)poly.size()) continue;
-        if(doTopoCheck&& !topologyCheck(poly, op.a, op.b, op.c ,op.d, op.E)){
-            continue;
-        }
-        //Collapse
-        poly[op.b] = op.E;
-        poly.erase(poly.begin() + op.c);
-        n = poly.size();
+        if (!nodes[op.a].active || !nodes[op.b].active || !nodes[op.c].active || !nodes[op.d].active) continue;
+        if (nodes[op.a].next != op.b || nodes[op.b].next != op.c || nodes[op.c].next != op.d) continue;
+        if (nodes[op.a].version != op.vA || nodes[op.b].version != op.vB || 
+            nodes[op.c].version != op.vC || nodes[op.d].version != op.vD) continue;
 
-        // std::vector<int> toErase;
-        // for(auto& [oid, o] : ops)
-        // {
-        //     if(o.b == op.b || o.c == op.b || o.b == op.c || o.c == op.c)
-        //     {
-        //         toErase.push_back(oid);
-        //     }
-        // }
-        // for(int oid: toErase)
-        // {
-        //     ops.erase(oid);
-        // }
-        // for(int offset = -2; offset <= 0; offset++)
-        // {
-        //     int start = ((op.b + offset) % n +n) % n;
-        //     addOp(start);
-        // }
-        ops.clear();
-        while (!pq.empty()) pq.pop();
+        if (doTopoCheck && !topologyCheckGlobal(nodes, op.a, op.b, op.c, op.d, op.E)) continue;
 
-        n = poly.size();
-        for(int i = 0; i < n; i++) {
-            addOp(i);
+        nodes[op.b].p = op.E;         
+        nodes[op.b].version++;        
+        nodes[op.c].active = false;   
+
+        nodes[op.b].next = op.d;
+        nodes[op.d].prev = op.b;
+
+        activeCount--;
+        ringActiveCount[nodes[op.b].ring_id]--;
+        outDisplacement += op.disp; 
+
+        int curr = nodes[nodes[nodes[op.b].prev].prev].prev;
+        for (int i = 0; i < 4; i++) {
+            addOp(curr);
+            curr = nodes[curr].next;
         }
     }
-    return pointsToBurd(poly, ring.empty() ?0 : ring[0].ring_id);
+
+    // 3. Reconstruct the separated rings
+    rings.clear();
+    std::map<int, int> ring_starts;
+    for(int i = 0; i < (int)nodes.size(); i++) {
+        if (nodes[i].active && ring_starts.find(nodes[i].ring_id) == ring_starts.end()) {
+            ring_starts[nodes[i].ring_id] = i;
+        }
+    }
+    
+    for (auto const& [ring_id, start_idx] : ring_starts) {
+        int curr = start_idx;
+        int v_id = 0;
+        do {
+            rings[ring_id].push_back({ring_id, v_id++, nodes[curr].p.x, nodes[curr].p.y});
+            curr = nodes[curr].next;
+        } while (curr != start_idx);
+    }
 }

@@ -52,21 +52,17 @@ std::string formatCoord(double value)
 }
 
 //Calculate Area
-double calculateArea(burd input)
-{
-    //Init stuff
+double calculateArea(burd input) {
     int n = int(input.size());
-    double area = 0.f;
-    //int j = n -1;
-    for(int i = 0;i<n;i++)
-    {
-        int j = (i+1) % n;
-        //Sheolace
+    double area = 0.0;
+    for(int i = 0; i < n; i++) {
+        int j = (i + 1) % n;
         area += input[i].x * input[j].y - input[j].x * input[i].y;
-        //area+= (input[j].x + input[i].x) * (input[j].y - input[i].y);
     }
-    return std::abs(area)/2.0;
+    
+    return area / 2.0; 
 }
+
 //Print everything!!!
 void printSuper(burd input)
 {
@@ -92,30 +88,29 @@ double calculateAllAreas(std::map<int, burd> input)
     return total_area;
 }
 
-void printToFile(std::ofstream& file, std::map<int, burd> input)
-    {
-            //file
-            //process input to rings then rings to burd
-
-        file<<"ring_id,vertex_id,x,y\n";
-        for(auto& x: input)
-        {
-            for(auto& y: x.second)
-            {
-                file << std::fixed << std::setprecision(3) << y.ring_id<<","
-                <<y.vertex_id<<","
-                <<formatCoord(y.x)<<","
-                <<formatCoord(y.y)<<"\n";
-            }
+void printOutput(std::ostream& out, const std::map<int, burd>& inputMap, const std::map<int, burd>& outputMap, double totalDisp)
+{
+        out << "ring_id,vertex_id,x,y\n";
+    for(auto& x: outputMap) {
+        for(auto& y: x.second) {
+            out << std::fixed << std::setprecision(3) << y.ring_id << ","
+                << y.vertex_id << ","
+                << formatCoord(y.x) << ","
+                << formatCoord(y.y) << "\n";
         }
-        //calculateAllAreas(input);
-
-        double input_area = calculateAllAreas(rings);
-        double simplified_area = calculateAllAreas(simplifiedRings);
-        file << "Total signed area in input: " << std::scientific << std::setprecision(6) << input_area << "\n";
-        file << "Total signed area in output: " << std::scientific << std::setprecision(6) << simplified_area << "\n";
-        file << "Total areal displacement: " << std::scientific << std::setprecision(6) << std::abs(input_area - simplified_area) << "\n";
     }
+
+    double input_area = calculateAllAreas(inputMap);
+    double simplified_area = calculateAllAreas(outputMap);
+    
+    // Save state to not mess up earlier fixed precision
+    std::ios_base::fmtflags oldFlags = out.flags(); 
+    out << std::scientific << std::setprecision(6);
+    out << "Total signed area in input: " << input_area << "\n";
+    out << "Total signed area in output: " << simplified_area << "\n";
+    out << "Total areal displacement: " << totalDisp << "\n";
+    out.flags(oldFlags);
+}
 
 //Input CSV file and read
 void exportSVG(const std::string& outpath, std::map<int,burd> input)
@@ -218,7 +213,7 @@ void ReadFileAndSaveToVector(std::string input, std::map<int, burd>& vect) {
     while (std::getline(file, line)) {
         if (line.empty()) continue;
 
-        // CHECK: If the line starts with 'T' (for "Total"), stop reading coordinates!
+        // CHECK: If the line starts with 'T' (for "Total"), stop reading coordinates
         if (line[0] == 'T' || !std::isdigit(line[0])) {
             break; 
         }
@@ -263,39 +258,42 @@ void simplify(std::string input, int vertices)
     int totalVerts = 0;
     for(auto& [id,r]: rings) totalVerts += (int)r.size();
 
-    for(auto& [id,r]: rings)
-    {
-        int target =std::max(4, (int)std::round(vertices* (double)r.size()/totalVerts));
-        std::cout<<"Ring "<<id<< ": "<< r.size()<< " -> " <<target <<" vertices\n";
-        simplifiedRings[id] = apscRing(r, target, false);
-    }
-
+    double totalDisplacement = 0.0;
     
-
+    // Copy the rings so we can preserve the input for the final output comparison
+    simplifiedRings = rings; 
     
+    // Run the global algorithm ONCE on the whole shape!
+    apscPolygon(simplifiedRings, vertices, true, totalDisplacement);
+
     //rings = simplifiedRings;
     //After everything done
     exportSVG("output.svg", simplifiedRings);
+
+    // Print to console 
+    //printOutput(std::cout, rings, simplifiedRings, totalDisplacement);
+    
+    // Print to file
     std::ofstream ofile("output.txt");
-    if(ofile.is_open())
-    {
-        printToFile(ofile, simplifiedRings);
+    if(ofile.is_open()) {
+        printOutput(ofile, rings, simplifiedRings, totalDisplacement);
     }
-    //calculateAllAreas(simplifiedRings);
 
 
 }
 
 int main(int argc, char* argv[])
 {
-    //Take in CSV file
-    if(argc < 3) 
-    {
-    std::cout<<"Usage: ./simplify <inputfile.csv> <target_vertices>\n";
+    if(argc < 3) {
+        std::cerr << "Usage: ./simplify <inputfile.csv> <target_vertices>\n";
+        return 1; // Exit on bad input
     } 
-    //Argv[0] is the ./simplify
-    //Argv[1] is the input file & Argv[2] is the vertices
+    
     simplify(argv[1], std::stoi(argv[2]));
-    ReadFileAndSaveToVector(argv[3], answer);
-    exportSVG("Answer.svg", answer);
+    
+    // Only try to read the answer model if a 3rd argument is actually provided
+    if (argc >= 4) {
+        ReadFileAndSaveToVector(argv[3], answer);
+        exportSVG("Answer.svg", answer);
+    }
 }
