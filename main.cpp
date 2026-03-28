@@ -265,6 +265,12 @@ void simplify(std::string input, int vertices)
     
     // Run the global algorithm ONCE on the whole shape!
     apscPolygon(simplifiedRings, vertices, true, totalDisplacement);
+    
+    for(auto& [id, r] : rings) {
+        // The 'target' (final) vertices is the size of the ring after simplification
+        int target = simplifiedRings[id].size(); 
+        std::cout << "Ring " << id << ": " << r.size() << " -> " << target << " vertices\n";
+    }
 
     //rings = simplifiedRings;
     //After everything done
