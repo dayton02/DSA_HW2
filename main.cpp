@@ -211,6 +211,7 @@ void ReadFileAndSaveToVector(std::string input, std::map<int,burd>& vect)
     if(!file.is_open())
     {
         std::cout<<"Unable to open file: "<<input<<std::endl;
+        return;
     }
     std::string line;
     //Burn the first line of the csv
@@ -222,9 +223,9 @@ void ReadFileAndSaveToVector(std::string input, std::map<int,burd>& vect)
         line = line.substr(line.find_first_of(',')+1);
         int vertex_id = std::stoi(line.substr(0, line.find_first_of(',')));
         line = line.substr(line.find_first_of(',')+1);
-        float x = std::stof(line.substr(0,line.find_first_of(',')));
+        float x = std::stod(line.substr(0,line.find_first_of(',')));
         line = line.substr(line.find_first_of(',')+1);
-        float y = std::stof(line);
+        float y = std::stod(line);
         vect[ring_id].push_back({ring_id,vertex_id, x, y});
     }
 }
@@ -275,9 +276,9 @@ void simplify(std::string input, int vertices)
 int main(int argc, char* argv[])
 {
     //Take in CSV file
-    if(argc <3) 
+    if(argc < 3) 
     {
-    std::cout<<"Usage: ./simplify inputfile.csv target_vertices";
+    std::cout<<"Usage: ./simplify <inputfile.csv> <target_vertices>\n";
     } 
     //Argv[0] is the ./simplify
     //Argv[1] is the input file & Argv[2] is the vertices
