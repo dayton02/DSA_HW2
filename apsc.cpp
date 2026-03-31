@@ -103,13 +103,21 @@ Point placement(Point A, Point B, Point C, Point D)
     bool valid_CD = lineIntersect(C, D, e1, e2, E_CD);
     double disp_CD = valid_CD ? getPolygonArea(A, B, C, E_CD) : std::numeric_limits<double>::max();
 
-    // Fallback if both line extensions are completely parallel to the E-line
-    if (!valid_AB && !valid_CD) {
+    // Candidate 3: Place E on the line extending BC
+    Point E_BC = B;
+    bool valid_BC = lineIntersect(B, C, e1, e2, E_BC);
+    // When E is on BC, the symmetric difference is exactly the sum of the two triangles ABE and CDE
+    double disp_BC = valid_BC ? (std::abs(triArea(A, B, E_BC)) + std::abs(triArea(C, D, E_BC))) : std::numeric_limits<double>::max();
+
+    // Fallback if all line extensions are completely parallel to the E-line
+    if (!valid_AB && !valid_CD && !valid_BC) {
         return B;
     }
 
-    // Directly minimize the areal displacement
-    return (disp_AB <= disp_CD) ? E_AB : E_CD;
+    // Return the optimal placement that directly minimizes the areal displacement
+    if (disp_AB <= disp_CD && disp_AB <= disp_BC) return E_AB;
+    if (disp_CD <= disp_AB && disp_CD <= disp_BC) return E_CD;
+    return E_BC;
 }
 
 // Calculates the sum of the two lobes of a self-intersecting "bowtie" quadrilateral
@@ -148,9 +156,16 @@ double getBowtieArea(Point P1, Point P2, Point P3, Point P4) {
 
 // THE FIXED DISPLACEMENT FUNCTION
 double displacementArea(Point A, Point B, Point C, Point D, Point E) {
-    // If E was placed on AB, the triangle formed by A, B, and E is degenerate (area is ~0).
-    // We compare it against the C-D-E triangle to safely avoid floating point noise.
-    if (std::abs(triArea(A, B, E)) <= std::abs(triArea(C, D, E))) {
+    double area_AB = std::abs(triArea(A, B, E));
+    double area_CD = std::abs(triArea(C, D, E));
+    double area_BC = std::abs(triArea(B, C, E));
+
+    // Determine which line E was placed on by finding the degenerate (zero-area) triangle.
+    // Using comparisons safely bypasses floating-point noise.
+    if (area_BC <= area_AB && area_BC <= area_CD) {
+        // E is perfectly aligned with BC
+        return area_AB + area_CD;
+    } else if (area_AB <= area_CD) {
         // E is perfectly aligned with AB
         return getPolygonArea(E, B, C, D);
     } else {
