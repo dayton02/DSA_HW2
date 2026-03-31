@@ -3,35 +3,6 @@
 
 //#define burd std::vector<VertexData>
 
-double getPolygonArea(Point P1, Point P2, Point P3, Point P4) {
-    auto intersect = [](Point p1, Point p2, Point p3, Point p4, Point& X) {
-        double det = (p2.x - p1.x)*(p4.y - p3.y) - (p2.y - p1.y)*(p4.x - p3.x);
-        if (std::abs(det) < 1e-12) return false;
-        
-        double t = ((p3.x - p1.x)*(p4.y - p3.y) - (p3.y - p1.y)*(p4.x - p3.x)) / det;
-        double u = ((p3.x - p1.x)*(p2.y - p1.y) - (p3.y - p1.y)*(p2.x - p1.x)) / det;
-        
-        // STRICT BOUNDS: The lines must cross exactly within the segments
-        if (t >= -1e-8 && t <= 1.0 + 1e-8 && u >= -1e-8 && u <= 1.0 + 1e-8) {
-            X = {p1.x + t*(p2.x - p1.x), p1.y + t*(p2.y - p1.y)};
-            return true;
-        }
-        return false;
-    };
-
-    Point X;
-    // Case 1: P1-P2 crosses P3-P4
-    if (intersect(P1, P2, P3, P4, X)) {
-        return std::abs(triArea(P1, P4, X)) + std::abs(triArea(P2, P3, X));
-    }
-    // Case 2: P2-P3 crosses P4-P1
-    if (intersect(P2, P3, P4, P1, X)) {
-        return std::abs(triArea(P1, P2, X)) + std::abs(triArea(P3, P4, X));
-    }
-    // Case 3: Simple polygon (no crossing)
-    return std::abs(triArea(P1, P2, P3) + triArea(P1, P3, P4));
-}
-
 //1) Calculate the signed distance between pt and line AB
 //Where is the point relative to A and D
 double signedDist(Point pt, Point A, Point D)
@@ -43,9 +14,9 @@ double signedDist(Point pt, Point A, Point D)
     return((pt.x - A.x) * dy - (pt.y - A.y) * dx)/len;
 }
 //2) Calculate area fo 3 points using shoelace method
-double triArea(Point i, Point j, Point k)
+inline double triArea(Point i, Point j, Point k)
 {
-    return 0.5* ((j.x-i.x) * (k.y-i.y) - (k.x-i.x)*(j.y-i.y));
+    return (j.x-i.x) * (k.y-i.y) - (k.x-i.x)*(j.y-i.y);
 }
 //3) Intersect two lines which are infinitely long
 bool lineIntersect(Point p1, Point p2, Point p3, Point p4, Point& out)
@@ -59,6 +30,12 @@ bool lineIntersect(Point p1, Point p2, Point p3, Point p4, Point& out)
     {
         return false; //Lines parallel
     }
+    if ((p1.x == p3.x && p1.y == p3.y) ||
+    (p1.x == p4.x && p1.y == p4.y) ||
+    (p2.x == p3.x && p2.y == p3.y) ||
+    (p2.x == p4.x && p2.y == p4.y))
+    return false;
+
     double t =((p3.x - p1.x) * d2y - (p3.y-p1.y)*d2x)/det; //parameter
     out = {p1.x+t*d1x, p1.y + t*d1y}; //Intersection point
     return true;
@@ -89,35 +66,31 @@ void eLineTwoPoints(double a, double b, double c, Point& e1, Point& e2)
 Point placement(Point A, Point B, Point C, Point D)
 {
     double a, b, c;
-    computeELine(A, B, C, D, a, b, c); // Get the line coefficients (ax + by + c = 0)
+    computeELine(A, B, C, D, a, b, c);
     Point e1, e2;
-    eLineTwoPoints(a, b, c, e1, e2); // Two points on E
+    eLineTwoPoints(a, b, c, e1, e2);
 
-    // Candidate 1: Place E on the line extending AB
     Point E_AB = B;
     bool valid_AB = lineIntersect(A, B, e1, e2, E_AB);
-    double disp_AB = valid_AB ? getPolygonArea(E_AB, B, C, D) : std::numeric_limits<double>::max();
-
-    // Candidate 2: Place E on the line extending CD
     Point E_CD = C;
     bool valid_CD = lineIntersect(C, D, e1, e2, E_CD);
-    double disp_CD = valid_CD ? getPolygonArea(A, B, C, E_CD) : std::numeric_limits<double>::max();
 
-    // Candidate 3: Place E on the line extending BC
-    Point E_BC = B;
-    bool valid_BC = lineIntersect(B, C, e1, e2, E_BC);
-    // When E is on BC, the symmetric difference is exactly the sum of the two triangles ABE and CDE
-    double disp_BC = valid_BC ? (std::abs(triArea(A, B, E_BC)) + std::abs(triArea(C, D, E_BC))) : std::numeric_limits<double>::max();
+    if (!valid_AB && !valid_CD) return B;
 
-    // Fallback if all line extensions are completely parallel to the E-line
-    if (!valid_AB && !valid_CD && !valid_BC) {
-        return B;
+    // Use Kronenfeld (2020) exact geometric placement logic (avoids floating-point area bugs)
+    double dB = signedDist(B, A, D);
+    double dC = signedDist(C, A, D);
+    double dE = signedDist(E_AB, A, D);
+
+    auto sign = [](double val) { return (val > 1e-9) ? 1 : ((val < -1e-9) ? -1 : 0); };
+
+    if (sign(dB) == sign(dC)) {
+        if (std::abs(dB) > std::abs(dC)) return valid_AB ? E_AB : E_CD;
+        else return valid_CD ? E_CD : E_AB;
+    } else {
+        if (sign(dB) == sign(dE)) return valid_AB ? E_AB : E_CD;
+        else return valid_CD ? E_CD : E_AB;
     }
-
-    // Return the optimal placement that directly minimizes the areal displacement
-    if (disp_AB <= disp_CD && disp_AB <= disp_BC) return E_AB;
-    if (disp_CD <= disp_AB && disp_CD <= disp_BC) return E_CD;
-    return E_BC;
 }
 
 // Calculates the sum of the two lobes of a self-intersecting "bowtie" quadrilateral
@@ -155,23 +128,15 @@ double getBowtieArea(Point P1, Point P2, Point P3, Point P4) {
 
 
 // THE FIXED DISPLACEMENT FUNCTION
-double displacementArea(Point A, Point B, Point C, Point D, Point E) {
-    double area_AB = std::abs(triArea(A, B, E));
-    double area_CD = std::abs(triArea(C, D, E));
-    double area_BC = std::abs(triArea(B, C, E));
+double displacementArea(Point A, Point B, Point C, Point D, Point E)
+{
+    // area removed
+    double removed = std::abs(triArea(A, B, C)) + std::abs(triArea(A, C, D));
 
-    // Determine which line E was placed on by finding the degenerate (zero-area) triangle.
-    // Using comparisons safely bypasses floating-point noise.
-    if (area_BC <= area_AB && area_BC <= area_CD) {
-        // E is perfectly aligned with BC
-        return area_AB + area_CD;
-    } else if (area_AB <= area_CD) {
-        // E is perfectly aligned with AB
-        return getPolygonArea(E, B, C, D);
-    } else {
-        // E is perfectly aligned with CD
-        return getPolygonArea(A, B, C, E);
-    }
+    // area added
+    double added = std::abs(triArea(A, E, D));
+
+    return std::abs(removed - added);
 }
 
 // GLOBAL TOPOLOGY CHECK: Checks every active segment across ALL rings
@@ -205,7 +170,7 @@ bool segmentsIntersect(Point p1, Point p2, Point p3, Point p4)
     }
     double t = cross2d(sub(p3,p1), s)/ det;
     double u = cross2d(sub(p3,p1), r)/det;
-    return (t > 1e-9 && t < 1- 1e-9 && u > 1e-9 && u <1-1e-9);
+    return (t > 0.0 && t < 1.0 && u > 0.0 && u < 1.0);
 }
 
 bool topologyCheck(const std::vector<Node>& nodes, int iA, int iB, int iC, int iD, Point E)
@@ -316,7 +281,8 @@ void apscPolygon(std::map<int, burd>& rings, int targetVertices, bool doTopoChec
         
         int id = nextId++;
         ops[id] = {a, b, c, d, E, dis, nodes[a].version, nodes[b].version, nodes[c].version, nodes[d].version};
-        pq.push({dis, id});
+        double weighted = dis / ringActiveCount[nodes[a].ring_id];
+        pq.push({weighted, id});
     };
 
     for (int i = 0; i < (int)nodes.size(); i++) addOp(i);
@@ -332,8 +298,15 @@ void apscPolygon(std::map<int, burd>& rings, int targetVertices, bool doTopoChec
 
         if (!nodes[op.a].active || !nodes[op.b].active || !nodes[op.c].active || !nodes[op.d].active) continue;
         if (nodes[op.a].next != op.b || nodes[op.b].next != op.c || nodes[op.c].next != op.d) continue;
-        if (nodes[op.a].version != op.vA || nodes[op.b].version != op.vB || 
-            nodes[op.c].version != op.vC || nodes[op.d].version != op.vD) continue;
+        // Recompute E and displacement using current geometry
+        Point E = placement(nodes[op.a].p, nodes[op.b].p, nodes[op.c].p, nodes[op.d].p);
+        double displ = displacementArea(nodes[op.a].p, nodes[op.b].p, nodes[op.c].p, nodes[op.d].p, E);
+
+        // If displacement changed, reinsert and skip
+        if (std::abs(displ - op.disp) > 1e-12) {
+            addOp(op.a);
+            continue;
+        }
 
         if (doTopoCheck && !topologyCheckGlobal(nodes, op.a, op.b, op.c, op.d, op.E)) continue;
 

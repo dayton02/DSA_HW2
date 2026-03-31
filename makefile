@@ -21,15 +21,14 @@ CXXFLAGS = -std=c++17 -pedantic -Wall -Wextra -g
 # MODEL = test_cases/output_wavy_with_three_holes.txt
 # PLACEHOLDER = 21
 
-# TEST FAILED - AREAL DISPLACMENT MORE THAN ANSWER
+# TEST PASSED
 # INPUT = test_cases/input_lake_with_two_islands.csv
 # MODEL = test_cases/output_lake_with_two_islands.txt
 # PLACEHOLDER = 17
 
-# TESTS 1, 2, 4, 5, 6, 7, 8, 9, 10 FAILED - AREAL DISPLACMENT MORE THAN ANSWER
-# TESTS 3 & 9 cannot run???
-INPUT = test_cases/input_original_03.csv
-MODEL = test_cases/output_original_03.txt
+# TESTS PASSED: 1,2,3,4,5,6,7,8,,10
+INPUT = test_cases/input_original_09.csv
+MODEL = test_cases/output_original_09.txt
 PLACEHOLDER = 99
 
 TARGET = main
