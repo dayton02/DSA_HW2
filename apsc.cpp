@@ -1,10 +1,8 @@
 #include "apsc.hpp"
 #include <algorithm>
 
-//#define burd std::vector<VertexData>
-
-//1) Calculate the signed distance between pt and line AB
-//Where is the point relative to A and D
+// 1) Calculate the signed distance between pt and line AB
+// Where is the point relative to A and D
 double signedDist(Point pt, Point A, Point D)
 {
     double dx = D.x - A.x; //Length X of AD
@@ -13,12 +11,14 @@ double signedDist(Point pt, Point A, Point D)
     if(len<1e-12) return 0.0; 
     return((pt.x - A.x) * dy - (pt.y - A.y) * dx)/len;
 }
-//2) Calculate area fo 3 points using shoelace method
+
+// 2) Calculate area fo 3 points using shoelace method
 inline double triArea(Point i, Point j, Point k)
 {
     return (j.x-i.x) * (k.y-i.y) - (k.x-i.x)*(j.y-i.y);
 }
-//3) Intersect two lines which are infinitely long
+
+// 3) Intersect two lines which are infinitely long
 bool lineIntersect(Point p1, Point p2, Point p3, Point p4, Point& out)
 {
     double d1x = p2.x - p1.x; //Direction vector of line 1
@@ -40,15 +40,16 @@ bool lineIntersect(Point p1, Point p2, Point p3, Point p4, Point& out)
     out = {p1.x+t*d1x, p1.y + t*d1y}; //Intersection point
     return true;
 }
-//4) Compute area-preserving line for ABCD, collapses BC to E
+
+// 4) Compute area-preserving line for ABCD, collapses BC to E
 void computeELine(Point A, Point B, Point C, Point D, double& a, double& b, double &c)
 {
- a = D.y - A.y; //X variable of normal AD
- b = A.x - D.x; //Y variable of normal AD
- c = -B.y*A.x + (A.y - C.y) * B.x + (B.y - D.y) * C.x + C.y * D.x; 
+    a = D.y - A.y; //X variable of normal AD
+    b = A.x - D.x; //Y variable of normal AD
+    c = -B.y*A.x + (A.y - C.y) * B.x + (B.y - D.y) * C.x + C.y * D.x; 
 }
 
-//5) Convert line coefficients into two points on the line. Can be used to intersect with AB or CD
+// 5) Convert line coefficients into two points on the line. Can be used to intersect with AB or CD
 void eLineTwoPoints(double a, double b, double c, Point& e1, Point& e2)
 {
     if(std::abs(b) > 1e-12)
@@ -62,7 +63,7 @@ void eLineTwoPoints(double a, double b, double c, Point& e1, Point& e2)
     }
 }
 
-//6) Decides on whether to collapse BC into AD or CD depending on geometry
+// 6) Decide where to place E based on the signed distances of B, C, and the candidate E to line AD
 Point placement(Point A, Point B, Point C, Point D)
 {
     double a, b, c;
@@ -77,7 +78,7 @@ Point placement(Point A, Point B, Point C, Point D)
 
     if (!valid_AB && !valid_CD) return B;
 
-    // Use Kronenfeld (2020) exact geometric placement logic (avoids floating-point area bugs)
+    // Use Kronenfeld exact geometric placement logic (avoids floating-point area bugs)
     double dB = signedDist(B, A, D);
     double dC = signedDist(C, A, D);
     double dE = signedDist(E_AB, A, D);
@@ -110,7 +111,6 @@ double getBowtieArea(Point P1, Point P2, Point P3, Point P4) {
     bool cross2 = intersect(P2, P3, P4, P1, X2, t2, u2);
     
     // Score based on how close the intersection is to the center of the segments
-    // This perfectly handles floating-point noise on extreme scales
     double score1 = cross1 ? std::max(std::abs(t1 - 0.5), std::abs(u1 - 0.5)) : 1e9;
     double score2 = cross2 ? std::max(std::abs(t2 - 0.5), std::abs(u2 - 0.5)) : 1e9;
 
@@ -173,6 +173,7 @@ bool segmentsIntersect(Point p1, Point p2, Point p3, Point p4)
     return (t > 0.0 && t < 1.0 && u > 0.0 && u < 1.0);
 }
 
+// Topology check for a single collapse operation, checks if the new point E causes any intersections with existing segments across all rings
 bool topologyCheck(const std::vector<Node>& nodes, int iA, int iB, int iC, int iD, Point E)
 {
     Point A = nodes[iA].p, D = nodes[iD].p;
@@ -213,6 +214,7 @@ std::vector<Node> burdToNodes(const burd& ring)
     return nodes;
 }
 
+// Convert from the global node list back to the output burd format, extracting only the active nodes for each ring
 burd nodesToBurd(const std::vector<Node>& nodes, int ring_id)
 {
     burd result;
@@ -233,6 +235,7 @@ burd nodesToBurd(const std::vector<Node>& nodes, int ring_id)
     return result;
 }
 
+// Main simplification function: takes the input rings, target vertex count, and outputs the simplified rings while calculating total areal displacement
 void apscPolygon(std::map<int, burd>& rings, int targetVertices, bool doTopoCheck, double& outDisplacement) {
     std::vector<Node> nodes;
     std::map<int, int> ringActiveCount;
@@ -258,11 +261,14 @@ void apscPolygon(std::map<int, burd>& rings, int targetVertices, bool doTopoChec
         }
     }
 
+    // If the total active vertices across all rings is already at or below the target, we can skip simplification
     if (activeCount <= targetVertices) return;
 
+    // 2. Compute initial collapse costs for every vertex and add to priority queue
     struct Op { int a, b, c, d; Point E; double disp; int vA, vB, vC, vD; };
     std::map<int, Op> ops;
 
+    // Lambda to add or update an operation for a given vertex index
     using Entry = std::pair<double, int>;
     std::priority_queue<Entry, std::vector<Entry>, std::greater<Entry>> pq;
     int nextId = 0;
@@ -285,19 +291,24 @@ void apscPolygon(std::map<int, burd>& rings, int targetVertices, bool doTopoChec
         pq.push({weighted, id});
     };
 
+    // Initialize the priority queue with all vertices
     for (int i = 0; i < (int)nodes.size(); i++) addOp(i);
 
-    // 2. Globally collapse the absolute best candidates
+    // Iteratively collapse the best vertex until we reach the target vertex count
     while (activeCount > targetVertices && !pq.empty()) {
+        // Get the operation with the lowest weighted displacement
         auto[disp, id] = pq.top(); 
         pq.pop();
 
+        // If the operation was invalidated by a previous collapse, skip it
         if (ops.find(id) == ops.end()) continue;
         Op op = ops[id];
         ops.erase(id); 
 
+        // Check if the operation is still valid (vertices haven't been modified since insertion)
         if (!nodes[op.a].active || !nodes[op.b].active || !nodes[op.c].active || !nodes[op.d].active) continue;
         if (nodes[op.a].next != op.b || nodes[op.b].next != op.c || nodes[op.c].next != op.d) continue;
+
         // Recompute E and displacement using current geometry
         Point E = placement(nodes[op.a].p, nodes[op.b].p, nodes[op.c].p, nodes[op.d].p);
         double displ = displacementArea(nodes[op.a].p, nodes[op.b].p, nodes[op.c].p, nodes[op.d].p, E);
@@ -308,19 +319,22 @@ void apscPolygon(std::map<int, burd>& rings, int targetVertices, bool doTopoChec
             continue;
         }
 
+        // If topology check is enabled, verify that collapsing this vertex won't cause intersections
         if (doTopoCheck && !topologyCheckGlobal(nodes, op.a, op.b, op.c, op.d, op.E)) continue;
 
+        // Perform the collapse: move B to E, remove C, and update links
         nodes[op.b].p = op.E;         
         nodes[op.b].version++;        
         nodes[op.c].active = false;   
-
         nodes[op.b].next = op.d;
         nodes[op.d].prev = op.b;
 
+        // Update counts and displacement
         activeCount--;
         ringActiveCount[nodes[op.b].ring_id]--;
         outDisplacement += op.disp; 
 
+        // Add new operations for the affected vertices (A, B, D)
         int curr = nodes[nodes[nodes[op.b].prev].prev].prev;
         for (int i = 0; i < 4; i++) {
             addOp(curr);
@@ -328,7 +342,7 @@ void apscPolygon(std::map<int, burd>& rings, int targetVertices, bool doTopoChec
         }
     }
 
-    // 3. Reconstruct the separated rings
+    // 3. Convert back to output format, extracting only active nodes for each ring
     rings.clear();
     std::map<int, int> ring_starts;
     for(int i = 0; i < (int)nodes.size(); i++) {
@@ -337,6 +351,7 @@ void apscPolygon(std::map<int, burd>& rings, int targetVertices, bool doTopoChec
         }
     }
     
+    // Iterate through each ring and extract the active nodes in order to reconstruct the simplified rings
     for (auto const& [ring_id, start_idx] : ring_starts) {
         int curr = start_idx;
         int v_id = 0;

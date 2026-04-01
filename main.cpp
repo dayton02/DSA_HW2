@@ -6,29 +6,13 @@
 #include <algorithm>
 #include "apsc.hpp"
 
-/*
-Things I need to do
-1. Read CSV file and obtain values
-2. Calculate area
-3. Visualization
-4. Implement algo
-*/
-
-// struct VertexData{
-//     int ring_id;
-//     int vertex_id;
-//     double x;
-//     double y;
-// };
-// #define burd std::vector<VertexData>
-
 burd supervertex;
 
-//Do rings
 std::map<int, burd> rings;
 std::map<int, burd> simplifiedRings;
 std::map<int, burd> answer;
 
+// Helper to format coordinates with up to 3 decimal places, removing trailing zeros
 std::string formatCoord(double value)
 {
     std::ostringstream stream;
@@ -51,7 +35,7 @@ std::string formatCoord(double value)
     return text;
 }
 
-//Calculate Area
+// Calculate the signed area of a single ring using the shoelace formula
 double calculateArea(burd input) {
     int n = int(input.size());
     double area = 0.0;
@@ -68,7 +52,7 @@ void printSuper(burd input)
 {
     for(VertexData& x: input)
     {
-        std::cout<< x.ring_id<<","
+        std::cerr<< x.ring_id<<","
         <<x.vertex_id<<","
         <<x.x<<","
         <<x.y<<"\n";
@@ -76,7 +60,7 @@ void printSuper(burd input)
 }
 
 
-
+// Calculate the total area of all rings in the input map
 double calculateAllAreas(std::map<int, burd> input)
 {
     double total_area = 0.0;
@@ -84,10 +68,11 @@ double calculateAllAreas(std::map<int, burd> input)
     {
         total_area += calculateArea(x.second);
     }
-    //std::cout << "The area for everything is: " << std::fixed << std::setprecision(3)<< total_area << std::endl;
+    //std::cerr << "The area for everything is: " << std::fixed << std::setprecision(3)<< total_area << std::endl;
     return total_area;
 }
 
+// Print the output CSV and area comparison to the output stream (console or file)
 void printOutput(std::ostream& out, const std::map<int, burd>& inputMap, const std::map<int, burd>& outputMap, double totalDisp)
 {
         out << "ring_id,vertex_id,x,y\n";
@@ -112,7 +97,7 @@ void printOutput(std::ostream& out, const std::map<int, burd>& inputMap, const s
     out.flags(oldFlags);
 }
 
-//Input CSV file and read
+// Export the given rings to an SVG file for visualization
 void exportSVG(const std::string& outpath, std::map<int,burd> input)
 {
     double minX=1e9, minY=1e9, maxX=-1e9, maxY=-1e9;
@@ -197,9 +182,10 @@ void exportSVG(const std::string& outpath, std::map<int,burd> input)
     }
 
     out << "</g>\n</svg>\n";
-    std::cout << "SVG written to " << outpath << "\n";
+    std::cerr << "SVG written to " << outpath << "\n";
 }
 
+// Read the input CSV file and populate the rings map
 void ReadFileAndSaveToVector(std::string input, std::map<int, burd>& vect) {
     std::ifstream file(input);
     if (!file.is_open()) {
@@ -238,22 +224,20 @@ void ReadFileAndSaveToVector(std::string input, std::map<int, burd>& vect) {
     }
 }
 
+// Simplify the polygon(s) in the input map to the target number of vertices, optionally performing topology checks, and calculating total areal displacement
 void simplify(std::string input, int vertices)
 {
-    std::cout<<"Filepath is "<<input<<std::endl;
-    std::cout<<"Number of vertices is "<<vertices<<std::endl;
+    std::cerr<<"Filepath is "<<input<<std::endl;
+    std::cerr<<"Number of vertices is "<<vertices<<std::endl;
 
     //Read the CSV file
     std::fstream file(input);
     if(!file.is_open())
     {
-        std::cout<<"Unable to open file: "<<input<<std::endl;
+        std::cerr<<"Unable to open file: "<<input<<std::endl;
     }
     ReadFileAndSaveToVector(input, rings); 
-    //Before output
     exportSVG("input.svg", rings);
-    //Simplify algo
-    //calculateAllAreas(rings);
 
     int totalVerts = 0;
     for(auto& [id,r]: rings) totalVerts += (int)r.size();
@@ -263,38 +247,42 @@ void simplify(std::string input, int vertices)
     // Copy the rings so we can preserve the input for the final output comparison
     simplifiedRings = rings; 
     
-    // Run the global algorithm ONCE on the whole shape!
+    // Run the global algorithm ONCE on the whole shape
     apscPolygon(simplifiedRings, vertices, true, totalDisplacement);
     
+    // Print the vertex count reduction for each ring, and the final SVG visualization of the simplified shape
     for(auto& [id, r] : rings) {
         // The 'target' (final) vertices is the size of the ring after simplification
         int target = simplifiedRings[id].size(); 
-        std::cout << "Ring " << id << ": " << r.size() << " -> " << target << " vertices\n";
+        std::cerr << "Ring " << id << ": " << r.size() << " -> " << target << " vertices\n";
     }
 
-    //rings = simplifiedRings;
-    //After everything done
+    // Export the simplified shape to SVG for visualization
     exportSVG("output.svg", simplifiedRings);
 
     // Print to console 
-    //printOutput(std::cout, rings, simplifiedRings, totalDisplacement);
+    std::cerr << std::endl;
+    printOutput(std::cout, rings, simplifiedRings, totalDisplacement);
     
     // Print to file
     std::ofstream ofile("output.txt");
     if(ofile.is_open()) {
         printOutput(ofile, rings, simplifiedRings, totalDisplacement);
+    } else {
+        std::cerr << "Error: Unable to write to output.txt\n";
     }
-
-
 }
 
+// Entry point: expects input CSV path, target vertex count, and optionally an answer model CSV for visualization
 int main(int argc, char* argv[])
 {
+    // Basic argument check
     if(argc < 3) {
         std::cerr << "Usage: ./simplify <inputfile.csv> <target_vertices>\n";
         return 1; // Exit on bad input
     } 
     
+    // Run the simplification algorithm
     simplify(argv[1], std::stoi(argv[2]));
     
     // Only try to read the answer model if a 3rd argument is actually provided

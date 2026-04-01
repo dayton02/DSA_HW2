@@ -4,6 +4,7 @@
 #include <map>
 #include <queue>
 
+// Data structures for vertices, nodes, and operations
 struct VertexData{
     int ring_id;
     int vertex_id;
@@ -11,10 +12,11 @@ struct VertexData{
     double y;
 };
 
+// A unified node structure for all rings, with links and metadata for the simplification process
 using burd = std::vector<VertexData>;
 
+// Node structure for the global linked list representation of all vertices across rings
 struct Point{double x,y;};
-
 struct Node {
     Point p;
     int prev;
