@@ -1,42 +1,302 @@
-<svg xmlns='http://www.w3.org/2000/svg' width='924.52' height='824.88' style='background:#0d0f14'>
-<g transform='translate(523.62,344.35) scale(1.00,-1.00)'>
-<path fill-rule='evenodd' fill='rgba(74,240,196,0.10)' stroke='none' d='M -473.62 38.97 L -243.81 -301.49 L -116.90 -145.75 L 113.37 -430.53 L 350.90 7.92 L 287.67 254.20 L 178.37 183.58 L 72.65 294.35 Z M -140.36 66.69 L -210.00 -90.00 L 18.09 9.79 L -190.00 -140.00 L -306.22 -70.27 Z M 110.00 -260.00 L 3.13 -117.51 L 314.29 11.43 L 210.00 -60.00 Z '/>
-<polygon fill='none' stroke='#4af0c4' stroke-width='2.00' stroke-linejoin='round' points='-473.62,38.97 -243.81,-301.49 -116.90,-145.75 113.37,-430.53 350.90,7.92 287.67,254.20 178.37,183.58 72.65,294.35 '/>
-<circle cx='-473.62' cy='38.97' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
-<text transform='translate(-468.62,42.97) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v0 (-473.62,38.97)</text>
-<circle cx='-243.81' cy='-301.49' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
-<text transform='translate(-238.81,-297.49) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v1 (-243.81,-301.49)</text>
-<circle cx='-116.90' cy='-145.75' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
-<text transform='translate(-111.90,-141.75) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v2 (-116.90,-145.75)</text>
-<circle cx='113.37' cy='-430.53' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
-<text transform='translate(118.37,-426.53) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v3 (113.37,-430.53)</text>
-<circle cx='350.90' cy='7.92' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
-<text transform='translate(355.90,11.92) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v4 (350.90,7.92)</text>
-<circle cx='287.67' cy='254.20' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
-<text transform='translate(292.67,258.20) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v5 (287.67,254.20)</text>
-<circle cx='178.37' cy='183.58' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
-<text transform='translate(183.37,187.58) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v6 (178.37,183.58)</text>
-<circle cx='72.65' cy='294.35' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
-<text transform='translate(77.65,298.35) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v7 (72.65,294.35)</text>
-<polygon fill='none' stroke='#f06a4a' stroke-width='2.00' stroke-linejoin='round' points='-140.36,66.69 -210.00,-90.00 18.09,9.79 -190.00,-140.00 -306.22,-70.27 '/>
-<circle cx='-140.36' cy='66.69' r='4.00' fill='#0d0f14' stroke='#f06a4a' stroke-width='2.00'/>
-<text transform='translate(-135.36,70.69) scale(1.00,-1.00)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v0 (-140.36,66.69)</text>
-<circle cx='-210.00' cy='-90.00' r='4.00' fill='#0d0f14' stroke='#f06a4a' stroke-width='2.00'/>
-<text transform='translate(-205.00,-86.00) scale(1.00,-1.00)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v1 (-210.00,-90.00)</text>
-<circle cx='18.09' cy='9.79' r='4.00' fill='#0d0f14' stroke='#f06a4a' stroke-width='2.00'/>
-<text transform='translate(23.09,13.79) scale(1.00,-1.00)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v2 (18.09,9.79)</text>
-<circle cx='-190.00' cy='-140.00' r='4.00' fill='#0d0f14' stroke='#f06a4a' stroke-width='2.00'/>
-<text transform='translate(-185.00,-136.00) scale(1.00,-1.00)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v3 (-190.00,-140.00)</text>
-<circle cx='-306.22' cy='-70.27' r='4.00' fill='#0d0f14' stroke='#f06a4a' stroke-width='2.00'/>
-<text transform='translate(-301.22,-66.27) scale(1.00,-1.00)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v4 (-306.22,-70.27)</text>
-<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='110.00,-260.00 3.13,-117.51 314.29,11.43 210.00,-60.00 '/>
-<circle cx='110.00' cy='-260.00' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
-<text transform='translate(115.00,-256.00) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (110.00,-260.00)</text>
-<circle cx='3.13' cy='-117.51' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
-<text transform='translate(8.13,-113.51) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (3.13,-117.51)</text>
-<circle cx='314.29' cy='11.43' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
-<text transform='translate(319.29,15.43) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (314.29,11.43)</text>
-<circle cx='210.00' cy='-60.00' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
-<text transform='translate(215.00,-56.00) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (210.00,-60.00)</text>
+<svg xmlns='http://www.w3.org/2000/svg' width='1700.00' height='1700.00' style='background:#0d0f14'>
+<g transform='translate(850.00,850.00) scale(1.00,-1.00)'>
+<path fill-rule='evenodd' fill='rgba(74,240,196,0.10)' stroke='none' d='M -800.00 -800.00 L 800.00 -800.00 L 800.00 800.00 L -800.00 800.00 Z M -591.04 -654.53 L -636.19 -621.74 L -648.67 -551.69 L -424.42 -564.30 Z M -357.71 -654.53 L -455.05 -509.06 L -297.14 -544.93 L -284.67 -614.98 Z M -182.00 -620.48 L -169.52 -544.93 L -108.96 -512.13 L -1.15 -638.65 Z M 169.52 -621.74 L 108.96 -654.53 L -5.91 -519.73 L 182.00 -554.00 Z M 402.86 -621.74 L 342.29 -654.53 L 284.67 -612.67 L 434.61 -449.34 Z M 575.62 -654.53 L 518.00 -612.67 L 530.48 -544.93 L 684.63 -461.46 Z M -575.62 -432.41 L -636.19 -388.40 L -598.94 -227.70 L -518.00 -350.00 Z M -402.86 -388.40 L -415.33 -350.00 L -402.86 -311.60 L -88.67 -459.78 Z M -169.52 -388.40 L -182.00 -318.36 L -108.96 -278.80 L 17.86 -370.93 Z M 169.52 -388.40 L -144.67 -208.20 L 169.52 -311.60 L 182.00 -350.00 Z M 220.55 -521.75 L 357.71 -278.80 L 402.86 -311.60 L 415.33 -350.00 Z M 636.19 -388.40 L 603.52 -412.14 L 497.66 -375.76 L 611.38 -231.74 Z M -648.67 -116.67 L -591.04 -34.26 L -530.48 -78.26 L -567.73 -238.96 Z M -351.80 -212.67 L -415.33 -116.67 L -348.20 -20.66 L -284.67 -116.67 Z M -169.52 -155.07 L -182.00 -116.67 L -114.87 -20.66 L -16.65 -169.08 Z M 169.52 -155.07 L -144.66 25.13 L 169.52 -78.26 L 182.00 -116.67 Z M 339.53 -212.67 L 284.67 -116.67 L 360.47 -20.66 L 415.33 -116.67 Z M 572.86 -212.67 L 508.37 -99.81 L 603.19 -37.48 L 648.67 -116.67 Z M -530.48 78.26 L -591.04 45.47 L -636.19 78.26 L -562.87 282.80 Z M -360.47 20.66 L -415.33 116.67 L -339.53 212.67 L -284.67 116.67 Z M -137.31 38.46 L -182.00 116.67 L -169.52 155.07 L 16.70 176.25 Z M 169.52 78.26 L 16.42 -4.65 L 124.38 187.87 L 182.00 146.00 Z M 348.20 20.66 L 284.67 116.67 L 351.80 212.67 L 415.33 116.67 Z M 591.04 34.26 L 530.48 78.26 L 567.73 238.96 L 648.67 116.67 Z M -611.38 231.74 L -636.19 388.40 L -554.07 425.40 L -518.00 350.00 Z M -402.86 311.60 L -415.33 350.00 L -402.86 388.40 L -88.67 558.55 Z M -124.38 278.80 L -182.00 320.66 L -169.52 388.40 L 15.03 398.07 Z M -22.43 295.59 L 124.38 421.20 L 169.52 388.40 L 182.00 318.36 Z M 402.86 311.60 L 88.67 459.78 L 402.86 388.40 L 415.33 350.00 Z M 518.00 350.00 L 530.48 388.40 L 591.04 421.20 L 645.62 157.16 Z M -530.48 544.93 L -684.63 461.46 L -575.62 654.53 L -518.00 612.67 Z M -357.71 512.13 L -415.33 554.00 L -402.86 621.74 L -248.71 705.21 Z '/>
+<polygon fill='none' stroke='#4af0c4' stroke-width='2.00' stroke-linejoin='round' points='-800.00,-800.00 800.00,-800.00 800.00,800.00 -800.00,800.00 '/>
+<circle cx='-800.00' cy='-800.00' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(-795.00,-796.00) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v0 (-800.00,-800.00)</text>
+<circle cx='800.00' cy='-800.00' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(805.00,-796.00) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v1 (800.00,-800.00)</text>
+<circle cx='800.00' cy='800.00' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(805.00,804.00) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v2 (800.00,800.00)</text>
+<circle cx='-800.00' cy='800.00' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(-795.00,804.00) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v3 (-800.00,800.00)</text>
+<polygon fill='none' stroke='#f06a4a' stroke-width='2.00' stroke-linejoin='round' points='-591.04,-654.53 -636.19,-621.74 -648.67,-551.69 -424.42,-564.30 '/>
+<circle cx='-591.04' cy='-654.53' r='4.00' fill='#0d0f14' stroke='#f06a4a' stroke-width='2.00'/>
+<text transform='translate(-586.04,-650.53) scale(1.00,-1.00)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v0 (-591.04,-654.53)</text>
+<circle cx='-636.19' cy='-621.74' r='4.00' fill='#0d0f14' stroke='#f06a4a' stroke-width='2.00'/>
+<text transform='translate(-631.19,-617.74) scale(1.00,-1.00)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v1 (-636.19,-621.74)</text>
+<circle cx='-648.67' cy='-551.69' r='4.00' fill='#0d0f14' stroke='#f06a4a' stroke-width='2.00'/>
+<text transform='translate(-643.67,-547.69) scale(1.00,-1.00)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v2 (-648.67,-551.69)</text>
+<circle cx='-424.42' cy='-564.30' r='4.00' fill='#0d0f14' stroke='#f06a4a' stroke-width='2.00'/>
+<text transform='translate(-419.42,-560.30) scale(1.00,-1.00)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v3 (-424.42,-564.30)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-357.71,-654.53 -455.05,-509.06 -297.14,-544.93 -284.67,-614.98 '/>
+<circle cx='-357.71' cy='-654.53' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-352.71,-650.53) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-357.71,-654.53)</text>
+<circle cx='-455.05' cy='-509.06' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-450.05,-505.06) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-455.05,-509.06)</text>
+<circle cx='-297.14' cy='-544.93' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-292.14,-540.93) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-297.14,-544.93)</text>
+<circle cx='-284.67' cy='-614.98' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-279.67,-610.98) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (-284.67,-614.98)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-182.00,-620.48 -169.52,-544.93 -108.96,-512.13 -1.15,-638.65 '/>
+<circle cx='-182.00' cy='-620.48' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-177.00,-616.48) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-182.00,-620.48)</text>
+<circle cx='-169.52' cy='-544.93' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-164.52,-540.93) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-169.52,-544.93)</text>
+<circle cx='-108.96' cy='-512.13' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-103.96,-508.13) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-108.96,-512.13)</text>
+<circle cx='-1.15' cy='-638.65' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(3.85,-634.65) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (-1.15,-638.65)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='169.52,-621.74 108.96,-654.53 -5.91,-519.73 182.00,-554.00 '/>
+<circle cx='169.52' cy='-621.74' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(174.52,-617.74) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (169.52,-621.74)</text>
+<circle cx='108.96' cy='-654.53' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(113.96,-650.53) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (108.96,-654.53)</text>
+<circle cx='-5.91' cy='-519.73' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-0.91,-515.73) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-5.91,-519.73)</text>
+<circle cx='182.00' cy='-554.00' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(187.00,-550.00) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (182.00,-554.00)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='402.86,-621.74 342.29,-654.53 284.67,-612.67 434.61,-449.34 '/>
+<circle cx='402.86' cy='-621.74' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(407.86,-617.74) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (402.86,-621.74)</text>
+<circle cx='342.29' cy='-654.53' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(347.29,-650.53) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (342.29,-654.53)</text>
+<circle cx='284.67' cy='-612.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(289.67,-608.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (284.67,-612.67)</text>
+<circle cx='434.61' cy='-449.34' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(439.61,-445.34) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (434.61,-449.34)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='575.62,-654.53 518.00,-612.67 530.48,-544.93 684.63,-461.46 '/>
+<circle cx='575.62' cy='-654.53' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(580.62,-650.53) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (575.62,-654.53)</text>
+<circle cx='518.00' cy='-612.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(523.00,-608.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (518.00,-612.67)</text>
+<circle cx='530.48' cy='-544.93' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(535.48,-540.93) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (530.48,-544.93)</text>
+<circle cx='684.63' cy='-461.46' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(689.63,-457.46) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (684.63,-461.46)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-575.62,-432.41 -636.19,-388.40 -598.94,-227.70 -518.00,-350.00 '/>
+<circle cx='-575.62' cy='-432.41' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-570.62,-428.41) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-575.62,-432.41)</text>
+<circle cx='-636.19' cy='-388.40' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-631.19,-384.40) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-636.19,-388.40)</text>
+<circle cx='-598.94' cy='-227.70' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-593.94,-223.70) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-598.94,-227.70)</text>
+<circle cx='-518.00' cy='-350.00' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-513.00,-346.00) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (-518.00,-350.00)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-402.86,-388.40 -415.33,-350.00 -402.86,-311.60 -88.67,-459.78 '/>
+<circle cx='-402.86' cy='-388.40' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-397.86,-384.40) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-402.86,-388.40)</text>
+<circle cx='-415.33' cy='-350.00' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-410.33,-346.00) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-415.33,-350.00)</text>
+<circle cx='-402.86' cy='-311.60' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-397.86,-307.60) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-402.86,-311.60)</text>
+<circle cx='-88.67' cy='-459.78' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-83.67,-455.78) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (-88.67,-459.78)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-169.52,-388.40 -182.00,-318.36 -108.96,-278.80 17.86,-370.93 '/>
+<circle cx='-169.52' cy='-388.40' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-164.52,-384.40) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-169.52,-388.40)</text>
+<circle cx='-182.00' cy='-318.36' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-177.00,-314.36) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-182.00,-318.36)</text>
+<circle cx='-108.96' cy='-278.80' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-103.96,-274.80) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-108.96,-278.80)</text>
+<circle cx='17.86' cy='-370.93' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(22.86,-366.93) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (17.86,-370.93)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='169.52,-388.40 -144.67,-208.20 169.52,-311.60 182.00,-350.00 '/>
+<circle cx='169.52' cy='-388.40' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(174.52,-384.40) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (169.52,-388.40)</text>
+<circle cx='-144.67' cy='-208.20' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-139.67,-204.20) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-144.67,-208.20)</text>
+<circle cx='169.52' cy='-311.60' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(174.52,-307.60) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (169.52,-311.60)</text>
+<circle cx='182.00' cy='-350.00' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(187.00,-346.00) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (182.00,-350.00)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='220.55,-521.75 357.71,-278.80 402.86,-311.60 415.33,-350.00 '/>
+<circle cx='220.55' cy='-521.75' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(225.55,-517.75) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (220.55,-521.75)</text>
+<circle cx='357.71' cy='-278.80' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(362.71,-274.80) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (357.71,-278.80)</text>
+<circle cx='402.86' cy='-311.60' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(407.86,-307.60) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (402.86,-311.60)</text>
+<circle cx='415.33' cy='-350.00' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(420.33,-346.00) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (415.33,-350.00)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='636.19,-388.40 603.52,-412.14 497.66,-375.76 611.38,-231.74 '/>
+<circle cx='636.19' cy='-388.40' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(641.19,-384.40) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (636.19,-388.40)</text>
+<circle cx='603.52' cy='-412.14' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(608.52,-408.14) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (603.52,-412.14)</text>
+<circle cx='497.66' cy='-375.76' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(502.66,-371.76) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (497.66,-375.76)</text>
+<circle cx='611.38' cy='-231.74' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(616.38,-227.74) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (611.38,-231.74)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-648.67,-116.67 -591.04,-34.26 -530.48,-78.26 -567.73,-238.96 '/>
+<circle cx='-648.67' cy='-116.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-643.67,-112.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-648.67,-116.67)</text>
+<circle cx='-591.04' cy='-34.26' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-586.04,-30.26) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-591.04,-34.26)</text>
+<circle cx='-530.48' cy='-78.26' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-525.48,-74.26) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-530.48,-78.26)</text>
+<circle cx='-567.73' cy='-238.96' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-562.73,-234.96) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (-567.73,-238.96)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-351.80,-212.67 -415.33,-116.67 -348.20,-20.66 -284.67,-116.67 '/>
+<circle cx='-351.80' cy='-212.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-346.80,-208.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-351.80,-212.67)</text>
+<circle cx='-415.33' cy='-116.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-410.33,-112.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-415.33,-116.67)</text>
+<circle cx='-348.20' cy='-20.66' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-343.20,-16.66) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-348.20,-20.66)</text>
+<circle cx='-284.67' cy='-116.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-279.67,-112.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (-284.67,-116.67)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-169.52,-155.07 -182.00,-116.67 -114.87,-20.66 -16.65,-169.08 '/>
+<circle cx='-169.52' cy='-155.07' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-164.52,-151.07) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-169.52,-155.07)</text>
+<circle cx='-182.00' cy='-116.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-177.00,-112.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-182.00,-116.67)</text>
+<circle cx='-114.87' cy='-20.66' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-109.87,-16.66) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-114.87,-20.66)</text>
+<circle cx='-16.65' cy='-169.08' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-11.65,-165.08) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (-16.65,-169.08)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='169.52,-155.07 -144.66,25.13 169.52,-78.26 182.00,-116.67 '/>
+<circle cx='169.52' cy='-155.07' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(174.52,-151.07) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (169.52,-155.07)</text>
+<circle cx='-144.66' cy='25.13' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-139.66,29.13) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-144.66,25.13)</text>
+<circle cx='169.52' cy='-78.26' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(174.52,-74.26) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (169.52,-78.26)</text>
+<circle cx='182.00' cy='-116.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(187.00,-112.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (182.00,-116.67)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='339.53,-212.67 284.67,-116.67 360.47,-20.66 415.33,-116.67 '/>
+<circle cx='339.53' cy='-212.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(344.53,-208.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (339.53,-212.67)</text>
+<circle cx='284.67' cy='-116.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(289.67,-112.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (284.67,-116.67)</text>
+<circle cx='360.47' cy='-20.66' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(365.47,-16.66) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (360.47,-20.66)</text>
+<circle cx='415.33' cy='-116.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(420.33,-112.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (415.33,-116.67)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='572.86,-212.67 508.37,-99.81 603.19,-37.48 648.67,-116.67 '/>
+<circle cx='572.86' cy='-212.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(577.86,-208.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (572.86,-212.67)</text>
+<circle cx='508.37' cy='-99.81' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(513.37,-95.81) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (508.37,-99.81)</text>
+<circle cx='603.19' cy='-37.48' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(608.19,-33.48) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (603.19,-37.48)</text>
+<circle cx='648.67' cy='-116.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(653.67,-112.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (648.67,-116.67)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-530.48,78.26 -591.04,45.47 -636.19,78.26 -562.87,282.80 '/>
+<circle cx='-530.48' cy='78.26' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-525.48,82.26) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-530.48,78.26)</text>
+<circle cx='-591.04' cy='45.47' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-586.04,49.47) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-591.04,45.47)</text>
+<circle cx='-636.19' cy='78.26' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-631.19,82.26) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-636.19,78.26)</text>
+<circle cx='-562.87' cy='282.80' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-557.87,286.80) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (-562.87,282.80)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-360.47,20.66 -415.33,116.67 -339.53,212.67 -284.67,116.67 '/>
+<circle cx='-360.47' cy='20.66' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-355.47,24.66) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-360.47,20.66)</text>
+<circle cx='-415.33' cy='116.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-410.33,120.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-415.33,116.67)</text>
+<circle cx='-339.53' cy='212.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-334.53,216.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-339.53,212.67)</text>
+<circle cx='-284.67' cy='116.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-279.67,120.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (-284.67,116.67)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-137.31,38.46 -182.00,116.67 -169.52,155.07 16.70,176.25 '/>
+<circle cx='-137.31' cy='38.46' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-132.31,42.46) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-137.31,38.46)</text>
+<circle cx='-182.00' cy='116.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-177.00,120.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-182.00,116.67)</text>
+<circle cx='-169.52' cy='155.07' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-164.52,159.07) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-169.52,155.07)</text>
+<circle cx='16.70' cy='176.25' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(21.70,180.25) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (16.70,176.25)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='169.52,78.26 16.42,-4.65 124.38,187.87 182.00,146.00 '/>
+<circle cx='169.52' cy='78.26' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(174.52,82.26) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (169.52,78.26)</text>
+<circle cx='16.42' cy='-4.65' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(21.42,-0.65) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (16.42,-4.65)</text>
+<circle cx='124.38' cy='187.87' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(129.38,191.87) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (124.38,187.87)</text>
+<circle cx='182.00' cy='146.00' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(187.00,150.00) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (182.00,146.00)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='348.20,20.66 284.67,116.67 351.80,212.67 415.33,116.67 '/>
+<circle cx='348.20' cy='20.66' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(353.20,24.66) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (348.20,20.66)</text>
+<circle cx='284.67' cy='116.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(289.67,120.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (284.67,116.67)</text>
+<circle cx='351.80' cy='212.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(356.80,216.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (351.80,212.67)</text>
+<circle cx='415.33' cy='116.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(420.33,120.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (415.33,116.67)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='591.04,34.26 530.48,78.26 567.73,238.96 648.67,116.67 '/>
+<circle cx='591.04' cy='34.26' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(596.04,38.26) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (591.04,34.26)</text>
+<circle cx='530.48' cy='78.26' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(535.48,82.26) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (530.48,78.26)</text>
+<circle cx='567.73' cy='238.96' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(572.73,242.96) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (567.73,238.96)</text>
+<circle cx='648.67' cy='116.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(653.67,120.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (648.67,116.67)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-611.38,231.74 -636.19,388.40 -554.07,425.40 -518.00,350.00 '/>
+<circle cx='-611.38' cy='231.74' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-606.38,235.74) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-611.38,231.74)</text>
+<circle cx='-636.19' cy='388.40' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-631.19,392.40) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-636.19,388.40)</text>
+<circle cx='-554.07' cy='425.40' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-549.07,429.40) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-554.07,425.40)</text>
+<circle cx='-518.00' cy='350.00' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-513.00,354.00) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (-518.00,350.00)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-402.86,311.60 -415.33,350.00 -402.86,388.40 -88.67,558.55 '/>
+<circle cx='-402.86' cy='311.60' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-397.86,315.60) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-402.86,311.60)</text>
+<circle cx='-415.33' cy='350.00' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-410.33,354.00) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-415.33,350.00)</text>
+<circle cx='-402.86' cy='388.40' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-397.86,392.40) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-402.86,388.40)</text>
+<circle cx='-88.67' cy='558.55' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-83.67,562.55) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (-88.67,558.55)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-124.38,278.80 -182.00,320.66 -169.52,388.40 15.03,398.07 '/>
+<circle cx='-124.38' cy='278.80' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-119.38,282.80) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-124.38,278.80)</text>
+<circle cx='-182.00' cy='320.66' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-177.00,324.66) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-182.00,320.66)</text>
+<circle cx='-169.52' cy='388.40' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-164.52,392.40) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-169.52,388.40)</text>
+<circle cx='15.03' cy='398.07' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(20.03,402.07) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (15.03,398.07)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-22.43,295.59 124.38,421.20 169.52,388.40 182.00,318.36 '/>
+<circle cx='-22.43' cy='295.59' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-17.43,299.59) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-22.43,295.59)</text>
+<circle cx='124.38' cy='421.20' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(129.38,425.20) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (124.38,421.20)</text>
+<circle cx='169.52' cy='388.40' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(174.52,392.40) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (169.52,388.40)</text>
+<circle cx='182.00' cy='318.36' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(187.00,322.36) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (182.00,318.36)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='402.86,311.60 88.67,459.78 402.86,388.40 415.33,350.00 '/>
+<circle cx='402.86' cy='311.60' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(407.86,315.60) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (402.86,311.60)</text>
+<circle cx='88.67' cy='459.78' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(93.67,463.78) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (88.67,459.78)</text>
+<circle cx='402.86' cy='388.40' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(407.86,392.40) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (402.86,388.40)</text>
+<circle cx='415.33' cy='350.00' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(420.33,354.00) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (415.33,350.00)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='518.00,350.00 530.48,388.40 591.04,421.20 645.62,157.16 '/>
+<circle cx='518.00' cy='350.00' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(523.00,354.00) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (518.00,350.00)</text>
+<circle cx='530.48' cy='388.40' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(535.48,392.40) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (530.48,388.40)</text>
+<circle cx='591.04' cy='421.20' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(596.04,425.20) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (591.04,421.20)</text>
+<circle cx='645.62' cy='157.16' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(650.62,161.16) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (645.62,157.16)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-530.48,544.93 -684.63,461.46 -575.62,654.53 -518.00,612.67 '/>
+<circle cx='-530.48' cy='544.93' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-525.48,548.93) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-530.48,544.93)</text>
+<circle cx='-684.63' cy='461.46' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-679.63,465.46) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-684.63,461.46)</text>
+<circle cx='-575.62' cy='654.53' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-570.62,658.53) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-575.62,654.53)</text>
+<circle cx='-518.00' cy='612.67' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-513.00,616.67) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (-518.00,612.67)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='-357.71,512.13 -415.33,554.00 -402.86,621.74 -248.71,705.21 '/>
+<circle cx='-357.71' cy='512.13' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-352.71,516.13) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (-357.71,512.13)</text>
+<circle cx='-415.33' cy='554.00' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-410.33,558.00) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (-415.33,554.00)</text>
+<circle cx='-402.86' cy='621.74' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-397.86,625.74) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (-402.86,621.74)</text>
+<circle cx='-248.71' cy='705.21' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(-243.71,709.21) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (-248.71,705.21)</text>
 </g>
 </svg>

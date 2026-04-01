@@ -1,0 +1,50 @@
+# makefile_exp — experimental evaluation tools for APSC polygon simplification
+# Usage (from DSA_HW2/):
+#   make -f experiments/makefile_exp benchrun  | generate test datasets + run benchmarks + print analysis
+#   make -f experiments/makefile_exp gen       | compile gen_cases only
+#   make -f experiments/makefile_exp bench     | compile bench only
+#   make -f experiments/makefile_exp clean     | remove binaries
+
+CXX      = g++
+CXXFLAGS = -std=c++17 -O2 -Wall
+
+GEN_SRC  = experiments/gen_cases.cpp
+GEN_BIN  = experiments/gen_cases
+
+BENCH_SRC = experiments/bench.cpp
+BENCH_BIN = experiments/bench
+
+# ── Build targets ──────────────────────────────────────────────────────────────
+
+.PHONY: all gen bench benchrun clean
+
+all: gen bench
+
+gen: $(GEN_BIN)
+
+$(GEN_BIN): $(GEN_SRC)
+	$(CXX) $(CXXFLAGS) -o $(GEN_BIN) $(GEN_SRC)
+
+bench: $(BENCH_BIN)
+
+# bench links against the already-compiled apsc.o (built by the main makefile)
+$(BENCH_BIN): $(BENCH_SRC) apsc.o
+	$(CXX) $(CXXFLAGS) -o $(BENCH_BIN) $(BENCH_SRC) apsc.o
+
+# apsc.o is produced by the main makefile; build it if missing
+apsc.o: apsc.cpp apsc.hpp
+	$(CXX) $(CXXFLAGS) -c apsc.cpp
+
+# ── Main target: complete pipeline ──────────────────────────────────────────
+
+benchrun: gen bench
+	@echo "=== Step 1: Generating test CSVs ==="
+	$(GEN_BIN)
+	@echo ""
+	@echo "=== Step 2: Running benchmarks + analysis ==="
+	$(BENCH_BIN)
+
+# ── Cleanup ───────────────────────────────────────────────────────────────────
+
+clean:
+	rm -f $(GEN_BIN) $(BENCH_BIN)
