@@ -1,30 +1,42 @@
-<svg xmlns='http://www.w3.org/2000/svg' width='3000.00' height='3000.00' style='background:#0d0f14'>
-<g transform='translate(1375.00,1500.00) scale(25.00,-25.00)'>
-<path fill-rule='evenodd' fill='rgba(74,240,196,0.10)' stroke='none' d='M -5.00 -10.00 L 15.00 -10.00 L 15.00 10.00 L -5.00 10.00 Z M -2.00 5.00 L 5.00 5.00 L 5.00 -5.00 Z M 6.00 -2.00 L 11.50 3.00 L 14.00 -2.00 L 12.00 -8.00 Z '/>
-<polygon fill='none' stroke='#4af0c4' stroke-width='0.08' stroke-linejoin='round' points='-5.00,-10.00 15.00,-10.00 15.00,10.00 -5.00,10.00 '/>
-<circle cx='-5.00' cy='-10.00' r='0.16' fill='#0d0f14' stroke='#4af0c4' stroke-width='0.08'/>
-<text transform='translate(-4.80,-9.84) scale(0.04,-0.04)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v0 (-5.00,-10.00)</text>
-<circle cx='15.00' cy='-10.00' r='0.16' fill='#0d0f14' stroke='#4af0c4' stroke-width='0.08'/>
-<text transform='translate(15.20,-9.84) scale(0.04,-0.04)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v1 (15.00,-10.00)</text>
-<circle cx='15.00' cy='10.00' r='0.16' fill='#0d0f14' stroke='#4af0c4' stroke-width='0.08'/>
-<text transform='translate(15.20,10.16) scale(0.04,-0.04)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v2 (15.00,10.00)</text>
-<circle cx='-5.00' cy='10.00' r='0.16' fill='#0d0f14' stroke='#4af0c4' stroke-width='0.08'/>
-<text transform='translate(-4.80,10.16) scale(0.04,-0.04)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v3 (-5.00,10.00)</text>
-<polygon fill='none' stroke='#f06a4a' stroke-width='0.08' stroke-linejoin='round' points='-2.00,5.00 5.00,5.00 5.00,-5.00 '/>
-<circle cx='-2.00' cy='5.00' r='0.16' fill='#0d0f14' stroke='#f06a4a' stroke-width='0.08'/>
-<text transform='translate(-1.80,5.16) scale(0.04,-0.04)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v0 (-2.00,5.00)</text>
-<circle cx='5.00' cy='5.00' r='0.16' fill='#0d0f14' stroke='#f06a4a' stroke-width='0.08'/>
-<text transform='translate(5.20,5.16) scale(0.04,-0.04)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v1 (5.00,5.00)</text>
-<circle cx='5.00' cy='-5.00' r='0.16' fill='#0d0f14' stroke='#f06a4a' stroke-width='0.08'/>
-<text transform='translate(5.20,-4.84) scale(0.04,-0.04)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v2 (5.00,-5.00)</text>
-<polygon fill='none' stroke='#a06af0' stroke-width='0.08' stroke-linejoin='round' points='6.00,-2.00 11.50,3.00 14.00,-2.00 12.00,-8.00 '/>
-<circle cx='6.00' cy='-2.00' r='0.16' fill='#0d0f14' stroke='#a06af0' stroke-width='0.08'/>
-<text transform='translate(6.20,-1.84) scale(0.04,-0.04)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (6.00,-2.00)</text>
-<circle cx='11.50' cy='3.00' r='0.16' fill='#0d0f14' stroke='#a06af0' stroke-width='0.08'/>
-<text transform='translate(11.70,3.16) scale(0.04,-0.04)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (11.50,3.00)</text>
-<circle cx='14.00' cy='-2.00' r='0.16' fill='#0d0f14' stroke='#a06af0' stroke-width='0.08'/>
-<text transform='translate(14.20,-1.84) scale(0.04,-0.04)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (14.00,-2.00)</text>
-<circle cx='12.00' cy='-8.00' r='0.16' fill='#0d0f14' stroke='#a06af0' stroke-width='0.08'/>
-<text transform='translate(12.20,-7.84) scale(0.04,-0.04)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v3 (12.00,-8.00)</text>
+<svg xmlns='http://www.w3.org/2000/svg' width='890.86' height='1148.64' style='background:#0d0f14'>
+<g transform='translate(468.31,769.25) scale(1.00,-1.00)'>
+<path fill-rule='evenodd' fill='rgba(74,240,196,0.10)' stroke='none' d='M -418.31 -175.69 L -245.66 -269.86 L -18.26 -90.89 L -166.86 -329.39 L 221.99 -303.42 L 372.56 170.28 L 210.26 719.25 L 314.49 95.84 L 30.49 51.71 L 177.86 283.14 L -52.48 388.61 Z M -317.71 -42.04 L -17.73 -24.62 L -207.37 -151.64 Z M 110.00 -260.00 L 32.86 -157.14 L 300.09 62.11 Z '/>
+<polygon fill='none' stroke='#4af0c4' stroke-width='2.00' stroke-linejoin='round' points='-418.31,-175.69 -245.66,-269.86 -18.26,-90.89 -166.86,-329.39 221.99,-303.42 372.56,170.28 210.26,719.25 314.49,95.84 30.49,51.71 177.86,283.14 -52.48,388.61 '/>
+<circle cx='-418.31' cy='-175.69' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(-413.31,-171.69) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v0 (-418.31,-175.69)</text>
+<circle cx='-245.66' cy='-269.86' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(-240.66,-265.86) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v1 (-245.66,-269.86)</text>
+<circle cx='-18.26' cy='-90.89' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(-13.26,-86.89) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v2 (-18.26,-90.89)</text>
+<circle cx='-166.86' cy='-329.39' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(-161.86,-325.39) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v3 (-166.86,-329.39)</text>
+<circle cx='221.99' cy='-303.42' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(226.99,-299.42) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v4 (221.99,-303.42)</text>
+<circle cx='372.56' cy='170.28' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(377.56,174.28) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v5 (372.56,170.28)</text>
+<circle cx='210.26' cy='719.25' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(215.26,723.25) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v6 (210.26,719.25)</text>
+<circle cx='314.49' cy='95.84' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(319.49,99.84) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v7 (314.49,95.84)</text>
+<circle cx='30.49' cy='51.71' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(35.49,55.71) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v8 (30.49,51.71)</text>
+<circle cx='177.86' cy='283.14' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(182.86,287.14) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v9 (177.86,283.14)</text>
+<circle cx='-52.48' cy='388.61' r='4.00' fill='#0d0f14' stroke='#4af0c4' stroke-width='2.00'/>
+<text transform='translate(-47.48,392.61) scale(1.00,-1.00)' font-size='10.00' fill='#4af0c4' font-family='monospace' dominant-baseline='auto'>v10 (-52.48,388.61)</text>
+<polygon fill='none' stroke='#f06a4a' stroke-width='2.00' stroke-linejoin='round' points='-317.71,-42.04 -17.73,-24.62 -207.37,-151.64 '/>
+<circle cx='-317.71' cy='-42.04' r='4.00' fill='#0d0f14' stroke='#f06a4a' stroke-width='2.00'/>
+<text transform='translate(-312.71,-38.04) scale(1.00,-1.00)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v0 (-317.71,-42.04)</text>
+<circle cx='-17.73' cy='-24.62' r='4.00' fill='#0d0f14' stroke='#f06a4a' stroke-width='2.00'/>
+<text transform='translate(-12.73,-20.62) scale(1.00,-1.00)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v1 (-17.73,-24.62)</text>
+<circle cx='-207.37' cy='-151.64' r='4.00' fill='#0d0f14' stroke='#f06a4a' stroke-width='2.00'/>
+<text transform='translate(-202.37,-147.64) scale(1.00,-1.00)' font-size='10.00' fill='#f06a4a' font-family='monospace' dominant-baseline='auto'>v2 (-207.37,-151.64)</text>
+<polygon fill='none' stroke='#a06af0' stroke-width='2.00' stroke-linejoin='round' points='110.00,-260.00 32.86,-157.14 300.09,62.11 '/>
+<circle cx='110.00' cy='-260.00' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(115.00,-256.00) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v0 (110.00,-260.00)</text>
+<circle cx='32.86' cy='-157.14' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(37.86,-153.14) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v1 (32.86,-157.14)</text>
+<circle cx='300.09' cy='62.11' r='4.00' fill='#0d0f14' stroke='#a06af0' stroke-width='2.00'/>
+<text transform='translate(305.09,66.11) scale(1.00,-1.00)' font-size='10.00' fill='#a06af0' font-family='monospace' dominant-baseline='auto'>v2 (300.09,62.11)</text>
 </g>
 </svg>

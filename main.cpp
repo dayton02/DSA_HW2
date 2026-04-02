@@ -64,11 +64,14 @@ void printSuper(burd input)
 double calculateAllAreas(std::map<int, burd> input)
 {
     double total_area = 0.0;
-    for(std::pair<const int, burd> x: input)
-    {
-        total_area += calculateArea(x.second);
+    for (auto& x : input) {
+        double a = std::abs(calculateArea(x.second));
+        if (x.first == 0) {
+            total_area += a;   // outer ring
+        } else {
+            total_area -= a;   // holes
+        }
     }
-    //std::cerr << "The area for everything is: " << std::fixed << std::setprecision(3)<< total_area << std::endl;
     return total_area;
 }
 

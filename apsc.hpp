@@ -35,6 +35,7 @@ void eLineTwoPoints(double a, double b, double c, Point& e1, Point& e2);
 Point placement(Point A, Point B, Point C, Point D);
 double displacementArea(Point A, Point B, Point C, Point D, Point E);
 bool segmentsIntersect(Point p1, Point p2, Point p3, Point p4);
+bool segmentsIntersectWithPoint(Point p1, Point p2, Point p3, Point p4, Point& X);
 
 // ALGORITHM FUNCTIONS
 bool topologyCheck(const std::vector<Node>& nodes, int iA, int iB, int iC, int iD, Point E);

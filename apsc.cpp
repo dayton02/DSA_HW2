@@ -12,10 +12,11 @@ double signedDist(Point pt, Point A, Point D)
     return((pt.x - A.x) * dy - (pt.y - A.y) * dx)/len;
 }
 
-// 2) Calculate area fo 3 points using shoelace method
+// 2) Calculate signed area of 3 points using shoelace formula
+// Returns 2x the signed area (clockwise positive, counterclockwise negative)
 inline double triArea(Point i, Point j, Point k)
 {
-    return (j.x-i.x) * (k.y-i.y) - (k.x-i.x)*(j.y-i.y);
+    return i.x * (j.y - k.y) + j.x * (k.y - i.y) + k.x * (i.y - j.y);
 }
 
 // 3) Intersect two lines which are infinitely long
@@ -42,11 +43,12 @@ bool lineIntersect(Point p1, Point p2, Point p3, Point p4, Point& out)
 }
 
 // 4) Compute area-preserving line for ABCD, collapses BC to E
+// Line equation: ax + by + c = 0, where E is placed to preserve total area
 void computeELine(Point A, Point B, Point C, Point D, double& a, double& b, double &c)
 {
-    a = D.y - A.y; //X variable of normal AD
-    b = A.x - D.x; //Y variable of normal AD
-    c = -B.y*A.x + (A.y - C.y) * B.x + (B.y - D.y) * C.x + C.y * D.x; 
+    a = D.y - A.y;  // normal to AD
+    b = A.x - D.x;  // normal to AD
+    c = -B.y*A.x + (A.y - C.y) * B.x + (B.y - D.y) * C.x + C.y * D.x;  // derived from area preservation
 }
 
 // 5) Convert line coefficients into two points on the line. Can be used to intersect with AB or CD
@@ -63,7 +65,14 @@ void eLineTwoPoints(double a, double b, double c, Point& e1, Point& e2)
     }
 }
 
-// 6) Decide where to place E based on the signed distances of B, C, and the candidate E to line AD
+// 6) Decide where to place E based on the signed distances of B, C, and E↔ to line AD.
+// Implements Kronenfeld et al. (2020) placement pseudo-code exactly:
+//   if side(B, AD) = side(C, AD):
+//       if d(B, AD) > d(C, AD): return intersection(E↔, AB)   [Fig. 4b,c]
+//       else:                   return intersection(E↔, CD)
+//   else:
+//       if side(B, AD) = side(E↔, AD): return intersection(E↔, AB)  [Fig. 4a]
+//       else:                           return intersection(E↔, CD)
 Point placement(Point A, Point B, Point C, Point D)
 {
     double a, b, c;
@@ -78,65 +87,75 @@ Point placement(Point A, Point B, Point C, Point D)
 
     if (!valid_AB && !valid_CD) return B;
 
-    // Use Kronenfeld exact geometric placement logic (avoids floating-point area bugs)
     double dB = signedDist(B, A, D);
     double dC = signedDist(C, A, D);
-    double dE = signedDist(E_AB, A, D);
+
+    // side(E↔, AD): use e1, a guaranteed point ON E↔, to determine which side of AD
+    // the line E↔ lies on. The previous code used E_AB here, but if valid_AB is false,
+    // E_AB stays as B, making dELine == dB and the else-branch condition always true —
+    // incorrect. e1 is always on E↔ regardless of whether valid_AB holds.
+    double dELine = signedDist(e1, A, D);
 
     auto sign = [](double val) { return (val > 1e-9) ? 1 : ((val < -1e-9) ? -1 : 0); };
 
     if (sign(dB) == sign(dC)) {
+        // B and C on the same side: the one further from AD drives the optimal intersection
         if (std::abs(dB) > std::abs(dC)) return valid_AB ? E_AB : E_CD;
-        else return valid_CD ? E_CD : E_AB;
+        else                             return valid_CD ? E_CD : E_AB;
     } else {
-        if (sign(dB) == sign(dE)) return valid_AB ? E_AB : E_CD;
-        else return valid_CD ? E_CD : E_AB;
+        // B and C on opposite sides: pick AB if B and E↔ share the same side of AD
+        if (sign(dB) == sign(dELine)) return valid_AB ? E_AB : E_CD;
+        else                          return valid_CD ? E_CD : E_AB;
     }
 }
 
-// Calculates the sum of the two lobes of a self-intersecting "bowtie" quadrilateral
-double getBowtieArea(Point P1, Point P2, Point P3, Point P4) {
-    auto intersect = [](Point p1, Point p2, Point p3, Point p4, Point& X, double& t, double& u) {
-        double det = (p2.x - p1.x)*(p4.y - p3.y) - (p2.y - p1.y)*(p4.x - p3.x);
-        if (std::abs(det) < 1e-12) return false;
-        t = ((p3.x - p1.x)*(p4.y - p3.y) - (p3.y - p1.y)*(p4.x - p3.x)) / det;
-        u = ((p3.x - p1.x)*(p2.y - p1.y) - (p3.y - p1.y)*(p2.x - p1.x)) / det;
-        X = {p1.x + t*(p2.x - p1.x), p1.y + t*(p2.y - p1.y)};
+// Helper: like segmentsIntersect but also returns the intersection point X.
+// Returns true only for strictly interior crossings (t,u ∈ (0,1)), matching
+// segmentsIntersect's behaviour so shared endpoints are never flagged.
+bool segmentsIntersectWithPoint(Point p1, Point p2, Point p3, Point p4, Point& X)
+{
+    auto cross2d = [](Point a, Point b) { return a.x * b.y - a.y * b.x; };
+    auto sub     = [](Point a, Point b) -> Point { return {a.x - b.x, a.y - b.y}; };
+    Point r   = sub(p2, p1);
+    Point s   = sub(p4, p3);
+    double det = cross2d(r, s);
+    if (std::abs(det) < 1e-12) return false;
+    double t = cross2d(sub(p3, p1), s) / det;
+    double u = cross2d(sub(p3, p1), r) / det;
+    if (t > 0.0 && t < 1.0 && u > 0.0 && u < 1.0) {
+        X = {p1.x + t * r.x, p1.y + t * r.y};
         return true;
-    };
-
-    Point X1, X2; 
-    double t1, u1, t2, u2;
-    bool cross1 = intersect(P1, P2, P3, P4, X1, t1, u1);
-    bool cross2 = intersect(P2, P3, P4, P1, X2, t2, u2);
-    
-    // Score based on how close the intersection is to the center of the segments
-    double score1 = cross1 ? std::max(std::abs(t1 - 0.5), std::abs(u1 - 0.5)) : 1e9;
-    double score2 = cross2 ? std::max(std::abs(t2 - 0.5), std::abs(u2 - 0.5)) : 1e9;
-
-    if (score1 < score2 && score1 < 2.0) { 
-        // Pair 1 crosses (True Bowtie)
-        return std::abs(triArea(X1, P2, P3)) + std::abs(triArea(X1, P4, P1));
-    } else if (score2 < 2.0) { 
-        // Pair 2 crosses (True Bowtie)
-        return std::abs(triArea(X2, P3, P4)) + std::abs(triArea(X2, P1, P2));
     }
-    
-    // Fallback for extreme floating point degenerate cases (acts as simple polygon)
-    return std::abs(triArea(P1, P2, P3) + triArea(P1, P3, P4));
+    return false;
 }
 
-
-// THE FIXED DISPLACEMENT FUNCTION
+// Compute the areal displacement between the original path A→B→C→D and the
+// simplified path A→E→D 
 double displacementArea(Point A, Point B, Point C, Point D, Point E)
 {
-    // area removed
-    double removed = std::abs(triArea(A, B, C)) + std::abs(triArea(A, C, D));
+    Point X;
 
-    // area added
-    double added = std::abs(triArea(A, E, D));
+    // Case 1 – E placed on line CD: closed polygon A→B→C→D→E crosses on BC∩EA
+    if (segmentsIntersectWithPoint(B, C, E, A, X)) {
+        // Lobe containing A and B: triangle A–B–X
+        double lobe1 = std::abs(triArea(A, B, X));
+        // Lobe containing C, D, E: quadrilateral X–C–D–E
+        double lobe2 = std::abs(triArea(X, C, D) + triArea(X, D, E));
+        return (lobe1 + lobe2) * 0.5;
+    }
 
-    return std::abs(removed - added);
+    // Case 2 – E placed on line AB: closed polygon A→B→C→D→E crosses on BC∩DE
+    if (segmentsIntersectWithPoint(B, C, D, E, X)) {
+        // Lobe containing C and D: triangle X–C–D
+        double lobe1 = std::abs(triArea(X, C, D));
+        // Lobe containing E, A, B: quadrilateral X–E–A–B
+        double lobe2 = std::abs(triArea(X, E, A) + triArea(X, A, B));
+        return (lobe1 + lobe2) * 0.5;
+    }
+
+    // Fallback: degenerate case (e.g. collinear vertices, E≈B).
+    // Area is already preserved so net displacement is genuinely ~0.
+    return 0.0;
 }
 
 // GLOBAL TOPOLOGY CHECK: Checks every active segment across ALL rings
@@ -278,8 +297,12 @@ void apscPolygon(std::map<int, burd>& rings, int targetVertices, bool doTopoChec
         int c = nodes[b].next;
         int d = nodes[c].next;
         
-        // Protect holes: Never let a ring drop below 4 vertices!
-        if (ringActiveCount[nodes[a].ring_id] <= 4) return;
+        // A collapse removes one vertex; keep every ring at ≥ 3 vertices (a triangle
+        // is the smallest valid simple polygon).  With ≤3 active vertices the pattern
+        // ABCD degenerates (d == a), which the a==d guard below also catches, but the
+        // explicit count check avoids unnecessary work.  The old guard of ≤4 wrongly
+        // prevented collapsing quadrilaterals to triangles.
+        if (ringActiveCount[nodes[a].ring_id] <= 3) return;
         if (a == b || a == c || a == d) return; 
         
         Point E = placement(nodes[a].p, nodes[b].p, nodes[c].p, nodes[d].p);
@@ -287,8 +310,11 @@ void apscPolygon(std::map<int, burd>& rings, int targetVertices, bool doTopoChec
         
         int id = nextId++;
         ops[id] = {a, b, c, d, E, dis, nodes[a].version, nodes[b].version, nodes[c].version, nodes[d].version};
-        double weighted = dis / ringActiveCount[nodes[a].ring_id];
-        pq.push({weighted, id});
+        // Use raw displacement as the priority key, exactly as Kronenfeld et al. (2020)
+        // describe: "the item with min d in worklist".  The previous code divided by
+        // ringActiveCount, which is not part of the paper's algorithm and biased the
+        // ordering toward smaller rings.
+        pq.push({dis, id});
     };
 
     // Initialize the priority queue with all vertices

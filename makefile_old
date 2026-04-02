@@ -5,9 +5,9 @@ CXXFLAGS = -std=c++17 -pedantic -Wall -Wextra -g
 # MODEL = test_cases/output_rectangle_with_two_holes.txt
 # PLACEHOLDER = 7
 
-#INPUT = test_cases/input_cushion_with_hexagonal_hole.csv
-#MODEL = test_cases/output_cushion_with_hexagonal_hole.txt
-#PLACEHOLDER = 13
+# INPUT = test_cases/input_cushion_with_hexagonal_hole.csv
+# MODEL = test_cases/output_cushion_with_hexagonal_hole.txt
+# PLACEHOLDER = 13
 
 # INPUT = test_cases/input_blob_with_two_holes.csv
 # MODEL = test_cases/output_blob_with_two_holes.txt
